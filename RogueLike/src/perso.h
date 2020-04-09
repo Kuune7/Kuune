@@ -28,6 +28,7 @@
 #define PLAYER_DEFAULT_HEALTH 100
 
 
+void MortPlayer(Player * player, SDL_Renderer * rendu, SDL_Window * screen, Salle salle[N][M], Labyrinthe * labyrinthe, TTF_Font * police, int * levelActuel);
 void ChargerPlayer(SDL_Window * screen, Player * player, const char f[50]);
 void initPlayer(Player * player, SDL_Window * screen, const char f[50], int labX, int labY, int salleX, int salleY);
 int ActionSalle(Input * in, SDL_Renderer * rendu, TTF_Font * police, Player * player, Salle salle, int * inGame, int * inMenu, int * levelActuel, Menu * menuActuel, Salle salleSave[N][M], Labyrinthe labyrinthe);
@@ -36,7 +37,6 @@ void AfficherPlayerMinimap(SDL_Renderer * rendu, int x, int y, int px, int py);
 void AfficherHUD (SDL_Renderer * rendu, Salle salle[N][M], Player player);
 void PassagePorte(Salle salle[N][M], Player * player);
 int CollisionMob(int pX, int pY, int pTailleX, int pTailleY, int mX, int mY, int mTailleX, int mTailleY);
-void AfficherInventaire(SDL_Renderer * rendu, Inventaire inventaire, TTF_Font * police);
 void LibererPlayer(Player * player);
 
 

@@ -66,26 +66,7 @@ void AfficherFPS(SDL_Renderer * rendu, TTF_Font * police) {
 }
 
 
-/**
- * \brief Permet de gerer la mort d'un joueur
-*/
-void MortPlayer(Player * player, SDL_Window * screen, Salle salle[N][M], Labyrinthe * labyrinthe) {
-	levelActuel = 1;
-	initLab(labyrinthe);
-	LibererMonstres(salle);
-	LibererPlayer(player);
-	initPlayer(player, screen, "player.txt", 0, 0, LARGEUR_ECRAN/2 - TAILLE_TILE/2, HAUTEUR_ECRAN/2 - TAILLE_TILE/2);
-	initSalle(screen, salle, labyrinthe->mat, *player, levelActuel);
-	salle[player->labY][player->labX].explorer = 1;
-	int lX, lY;
-	Labyrinthe lab = *labyrinthe;
-	CheminLePlusLong(lab, &lX, &lY);
-	InitialisationBoss(screen, &salle[lY][lX], salle[player->labY][player->labX]);
-	if (sound != NULL) {
-		Mix_FreeMusic(sound);
-		sound = NULL;
-	}
-}
+
 
 
 int i = 0;
@@ -115,57 +96,6 @@ void Affichage(SDL_Renderer * rendu, TTF_Font * police, Salle salle[N][M], Playe
 }
 
 
-/**
- * \brief Permet de gerer l'evolution des monstres
- * \return 1 Si le joueur est mort suite a une collision avec un mob
- * \return 0 Sinon
-*/
-int  EvolutionMonstres (Salle salle[N][M], Player player, Player * p) {
-	for (int i = 0 ; i < salle[player.labY][player.labX].nbMonstres ; i++) {
-		if (((player.salleX >= (salle[player.labY][player.labX].monstre[i].salleX-salle[player.labY][player.labX].monstre[i].tailleX*7)) && (player.salleX <= (salle[player.labY][player.labX].monstre[i].salleX+salle[player.labY][player.labX].monstre[i].tailleX)+7*salle[player.labY][player.labX].monstre[i].tailleX)) && ((player.salleY >= (salle[player.labY][player.labX].monstre[i].salleY-7*salle[player.labY][player.labX].monstre[i].tailleY)) && (player.salleY <= (salle[player.labY][player.labX].monstre[i].salleY+salle[player.labY][player.labX].monstre[i].tailleY)+7*salle[player.labY][player.labX].monstre[i].tailleX))) {
-			if (!CollisionMob(player.salleX, player.salleY, player.tailleX, player.tailleY, salle[player.labY][player.labX].monstre[i].salleX+2, salle[player.labY][player.labX].monstre[i].salleY, salle[player.labY][player.labX].monstre[i].tailleX, salle[player.labY][player.labX].monstre[i].tailleY) && !CollisionMob(player.salleX, player.salleY, player.tailleX, player.tailleY, salle[player.labY][player.labX].monstre[i].salleX-2, salle[player.labY][player.labX].monstre[i].salleY, salle[player.labY][player.labX].monstre[i].tailleX, salle[player.labY][player.labX].monstre[i].tailleY) && !CollisionMob(player.salleX, player.salleY, player.tailleX, player.tailleY, salle[player.labY][player.labX].monstre[i].salleX, salle[player.labY][player.labX].monstre[i].salleY+2, salle[player.labY][player.labX].monstre[i].tailleX, salle[player.labY][player.labX].monstre[i].tailleY) && !CollisionMob(player.salleX, player.salleY, player.tailleX, player.tailleY, salle[player.labY][player.labX].monstre[i].salleX, salle[player.labY][player.labX].monstre[i].salleY-2, salle[player.labY][player.labX].monstre[i].tailleX, salle[player.labY][player.labX].monstre[i].tailleY)) {
-				DeplacementMonstre(&salle[player.labY][player.labX].monstre[i], player);
-			}
-		}
-		if (CollisionMob(player.salleX, player.salleY, player.tailleX, player.tailleY, salle[player.labY][player.labX].monstre[i].salleX+2, salle[player.labY][player.labX].monstre[i].salleY, salle[player.labY][player.labX].monstre[i].tailleX, salle[player.labY][player.labX].monstre[i].tailleY) || CollisionMob(player.salleX, player.salleY, player.tailleX, player.tailleY, salle[player.labY][player.labX].monstre[i].salleX-2, salle[player.labY][player.labX].monstre[i].salleY, salle[player.labY][player.labX].monstre[i].tailleX, salle[player.labY][player.labX].monstre[i].tailleY) || CollisionMob(player.salleX, player.salleY, player.tailleX, player.tailleY, salle[player.labY][player.labX].monstre[i].salleX, salle[player.labY][player.labX].monstre[i].salleY+2, salle[player.labY][player.labX].monstre[i].tailleX, salle[player.labY][player.labX].monstre[i].tailleY) || CollisionMob(player.salleX, player.salleY, player.tailleX, player.tailleY, salle[player.labY][player.labX].monstre[i].salleX, salle[player.labY][player.labX].monstre[i].salleY-2, salle[player.labY][player.labX].monstre[i].tailleX, salle[player.labY][player.labX].monstre[i].tailleY)) {
-			if (TimerMob(&salle[player.labY][player.labX].monstre[i])) {
-				int degats = salle[player.labY][player.labX].monstre[i].damages - p->def/4;
-				if (salle[player.labY][player.labX].nbMonstres && !salle[player.labY][player.labX].monstre[0].bossFinal) {
-					if (sound != NULL) {
-						Mix_FreeMusic(sound);
-						sound = NULL;
-					}
-					sound = Mix_LoadMUS("./sounds/hitted.wav");
-					Mix_PlayMusic(sound, 1);
-				}
-
-				if (!GOD_MOD) {
-					if (degats < 5) {
-						p->hp -= 5;
-					}
-					else {
-						p->hp -= degats;
-					}
-					if (p->hp <= 0) {
-						return 1;
-					}
-				}
-			}
-		}
-	}
-	return 0;
-}
-
-
-void InitMatSalle(Salle salle[N][M]) {
-
-	for (int i = 0 ; i < N ; i++) {
-		for (int j = 0 ; j < M ; j++) {
-			salle[i][j].nbMonstres = 0;
-		}
-	} 
-
-}
 
 /**
  * \brief Fonction main du programme
@@ -256,7 +186,7 @@ int main(int argc, char ** argv) {
 				case Save1:
 					inMenu = 0;
 					inGame = 1;
-					ChargerPartie("./saves/Save1.txt", &labyrinthe, &player, salle);
+					ChargerPartie("./saves/Save1.txt", &labyrinthe, &player, salle, &levelActuel);
 					ChargerLab(&labyrinthe);
 					ChargerPlayer(screen, &player, "player.txt");
 					ChargerMob(screen, salle, levelActuel);
@@ -266,18 +196,30 @@ int main(int argc, char ** argv) {
 				case Save2:
 					inMenu = 0;
 					inGame = 1;
-					ChargerPartie("./saves/Save2.txt", &labyrinthe, &player, salle);
+					ChargerPartie("./saves/Save2.txt", &labyrinthe, &player, salle, &levelActuel);
 					ChargerLab(&labyrinthe);
+					ChargerPlayer(screen, &player, "player.txt");
+					ChargerMob(screen, salle, levelActuel);
+					CheminLePlusLong(labyrinthe, &lX, &lY);
+					InitialisationBoss(screen, &salle[lY][lX], salle[player.labY][player.labX]);
 					break;
 				case Save3:
 					inMenu = 0;
 					inGame = 1;
-					ChargerPartie("./saves/Save3.txt", &labyrinthe, &player, salle);
+					ChargerPartie("./saves/Save3.txt", &labyrinthe, &player, salle, &levelActuel);
 					ChargerLab(&labyrinthe);
+					ChargerPlayer(screen, &player, "player.txt");
+					ChargerMob(screen, salle, levelActuel);
+					CheminLePlusLong(labyrinthe, &lX, &lY);
+					InitialisationBoss(screen, &salle[lY][lX], salle[player.labY][player.labX]);
 					break;
 				case Touches:
 					menuActuel = Touches;
 					AfficherMenuTouches(rendu, police);
+					break;
+				case Regle:
+					menuActuel = Regle;
+					AfficherMenuRegles(rendu);
 					break;
 				default:
 					break;
@@ -307,38 +249,56 @@ int main(int argc, char ** argv) {
 				LibererPlayer(&player);
 				LibererMonstres(salle);
 				
+				if (levelActuel <= 4) {
+					Player p;
+					p = player;
+					initPlayer(&player, screen, "player.txt", 0, 0, LARGEUR_ECRAN/2 - TAILLE_TILE/2, HAUTEUR_ECRAN/2 - TAILLE_TILE/2);
+					player.damage = p.damage;
+					player.def = p.def;
+					player.hp_max = player.hp = p.hp_max*levelActuel;
+
+					InitMatSalle(salle);
+					initSalle(screen, salle, labyrinthe.mat, player, levelActuel);
+					salle[player.labY][player.labX].explorer = 1;
+					int lX, lY;
+					CheminLePlusLong(labyrinthe, &lX, &lY);
+					InitialisationBoss(screen, &salle[lY][lX], salle[player.labY][player.labX]);
+				}	
+				else {
+					SDL_Color couleur = {255, 255, 255};
+					SDL_Surface * surface = TTF_RenderText_Solid(police, "Bravo tu as gagner !", couleur);
+					SDL_Texture * texture = SDL_CreateTextureFromSurface(rendu, surface);
+					int texW = 0, texH = 0;
+					SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
+					SDL_Rect dstrect = {LARGEUR_ECRAN/2 - texW/2, HAUTEUR_ECRAN/2 - texH/2, texW, texH };
+					SDL_RenderCopy(rendu, texture, NULL, &dstrect);
+					SDL_DestroyTexture(texture);
+					SDL_FreeSurface(surface);
+
+					SDL_RenderPresent(rendu);
+					sleep(3);
+
+					inGame = 0;
+					inMenu = 1;
+				}
+
 				initLab(&labyrinthe);
-				
-				Player p;
-				p = player;
-				initPlayer(&player, screen, "player.txt", 0, 0, LARGEUR_ECRAN/2 - TAILLE_TILE/2, HAUTEUR_ECRAN/2 - TAILLE_TILE/2);
-				player.damage = p.damage;
-				player.def = p.def;
-				player.hp_max = player.hp = p.hp_max*levelActuel;
-
-				InitMatSalle(salle);
-				initSalle(screen, salle, labyrinthe.mat, player, levelActuel);
-				salle[player.labY][player.labX].explorer = 1;
-				int lX, lY;
-				CheminLePlusLong(labyrinthe, &lX, &lY);
-				InitialisationBoss(screen, &salle[lY][lX], salle[player.labY][player.labX]);
-			}
-			PassagePorte(salle, &player);
-
-			if (EvolutionMonstres(salle, player, &player)) {
-				MortPlayer(&player, screen, salle, &labyrinthe);
 			}
 
-			Affichage(rendu, police, salle, player);
+			if (inGame) {
+				PassagePorte(salle, &player);
 
-			if (in.key[SDLK_TAB]) {
-				AfficherInventaire(rendu, player.inventaire, police);
+				if (EvolutionMonstres(salle, player, &player)) {
+					MortPlayer(&player, rendu, screen, salle, &labyrinthe, police, &levelActuel);
+				}
+
+				Affichage(rendu, police, salle, player);
+
+				SDL_RenderPresent(rendu);
+				SDL_Delay(2);
 			}
-
-			SDL_RenderPresent(rendu);
-			SDL_Delay(2);
 		}
-
+		
 		LibererPlayer(&player);
 		LibererMonstres(salle);
 	}

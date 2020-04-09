@@ -6,6 +6,7 @@
 #include <time.h>
 #include "son.h"
 #include "sprite.h"
+#include "monstre.h"
 
 /**
  * \file perso.c
@@ -104,48 +105,6 @@ void AttaquePlayer (SDL_Renderer * rendu, Player * player, Salle * salle, Salle 
 
 
 /**
- * \brief Permet d'afficher l'inventaire du joueur
-*/
-void AfficherInventaire(SDL_Renderer * rendu, Inventaire inventaire, TTF_Font * police) {
-
-	SDL_SetRenderDrawBlendMode(rendu, SDL_BLENDMODE_BLEND);
-	SDL_Rect fond = {5, 90, 200, 600};
-	SDL_SetRenderDrawColor (rendu, 50, 50, 50, 120);
-	SDL_RenderFillRect(rendu, &fond);
-
-	SDL_SetRenderDrawColor (rendu, 102, 20, 20, 255);
-
-    char t[50];
-	SDL_Color couleur = {255, 255, 255};
-    SDL_Surface * texte;
-    SDL_Texture * texture;
-
-	SDL_Rect rect = {15, 100, 30, 30};
-	for (int i = 0 ; i < inventaire.nb_objet ; i++) {
-		SDL_SetRenderDrawColor (rendu, inventaire.objet[i].r, inventaire.objet[i].g, inventaire.objet[i].b, 255);
-		SDL_RenderFillRect(rendu, &rect);
-		
-		rect.x += 75;
-		sprintf(t, "%d    %d", inventaire.objet[i].attaque, inventaire.objet[i].def);
-		texte = TTF_RenderText_Solid(police, t, couleur);
-		texture = SDL_CreateTextureFromSurface(rendu, texte);
-		//SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
-		rect.w *= 2;
-		SDL_RenderCopy(rendu, texture, NULL, &rect);
-		
-		rect.x -= 75;
-		rect.y += 35;
-		rect.w = 30;
-		rect.h = 30;
-
-		SDL_DestroyTexture(texture);
-    	SDL_FreeSurface(texte);
-	}
-}
-
-
-
-/**
 	\brief Permet de gerer le mouvement du personnage dans une salle
 */
 int ActionSalle(Input * in, SDL_Renderer * rendu, TTF_Font * police, Player * player, Salle salle, int * inGame, int * inMenu, int * levelActuel, Menu * menuActuel, Salle salleSave[N][M], Labyrinthe labyrinthe) {
@@ -182,7 +141,7 @@ int ActionSalle(Input * in, SDL_Renderer * rendu, TTF_Font * police, Player * pl
 					actuel = Sauvegarde;
 					break;
 				case Sauvegarde1:
-					SauvegarderPartie("./saves/Save1.txt", labyrinthe, *player, salleSave);
+					SauvegarderPartie("./saves/Save1.txt", labyrinthe, *player, salleSave, *levelActuel);
 					AfficherSalle(rendu, salleSave[player->labY][player->labX], *player, *levelActuel);
 					AffichageAnimation(player->An, rendu, player->sp->sens, (int)player->sp->stat, player->sp->x, player->sp->y,0);
 					AfficherMinimap(rendu, salleSave, *player);
@@ -191,7 +150,7 @@ int ActionSalle(Input * in, SDL_Renderer * rendu, TTF_Font * police, Player * pl
 					actuel = Premier;
 					break;
 				case Sauvegarde2:
-					SauvegarderPartie("./saves/Save2.txt", labyrinthe, *player, salleSave);
+					SauvegarderPartie("./saves/Save2.txt", labyrinthe, *player, salleSave, *levelActuel);
 					AfficherSalle(rendu, salleSave[player->labY][player->labX], *player, *levelActuel);
 					AffichageAnimation(player->An, rendu, player->sp->sens, (int)player->sp->stat, player->sp->x, player->sp->y,0);
 					AfficherMinimap(rendu, salleSave, *player);
@@ -200,7 +159,7 @@ int ActionSalle(Input * in, SDL_Renderer * rendu, TTF_Font * police, Player * pl
 					actuel = Premier;
 					break;
 				case Sauvegarde3:
-					SauvegarderPartie("./saves/Save3.txt", labyrinthe, *player, salleSave);
+					SauvegarderPartie("./saves/Save3.txt", labyrinthe, *player, salleSave, *levelActuel);
 					AfficherSalle(rendu, salleSave[player->labY][player->labX], *player, *levelActuel);
 					AffichageAnimation(player->An, rendu, player->sp->sens, (int)player->sp->stat, player->sp->x, player->sp->y,0);
 					AfficherMinimap(rendu, salleSave, *player);
@@ -349,7 +308,7 @@ void PassagePorte(Salle salle[N][M], Player * player) {
 	
 	if (!(salle[player->labY][player->labX].nbMonstres == 1 && salle[player->labY][player->labX].monstre[0].bossFinal) || GOD_MOD) { //Si on est dans la salle du boss, et qu'il est toujours en vie alors on peu pas revenir en arriere
 		if (salle[player->labY][player->labX].est == 1) { //Si il y a une porte a est
-			if (!salle[player->labY][player->labX].nbMonstres || salle[player->labY][player->labX].explorer || GOD_MOD) {
+			if ((!salle[player->labY][player->labX].nbMonstres || salle[player->labY][player->labX+1].explorer) || GOD_MOD) {
 				if ((player->salleX >= LARGEUR_ECRAN-player->tailleX-boxCollision) && (player->salleX <= LARGEUR_ECRAN) && (player->salleY >= HAUTEUR_ECRAN/2-2*TAILLE_TILE-boxCollision) && (player->salleY <= ((HAUTEUR_ECRAN/2+2*TAILLE_TILE+boxCollision)))) {
 					player->labX += 1;
 					player->salleX = 2*TAILLE_TILE;
@@ -364,7 +323,7 @@ void PassagePorte(Salle salle[N][M], Player * player) {
 
 		//Si il y a une porte a ouest
 		if (salle[player->labY][player->labX].ouest == 1) {
-			if (!salle[player->labY][player->labX].nbMonstres || salle[player->labY][player->labX].explorer || GOD_MOD) {
+			if ((!salle[player->labY][player->labX].nbMonstres || salle[player->labY][player->labX-1].explorer) || GOD_MOD) {
 				if ((player->salleX>= 0) && (player->salleX <= TAILLE_TILE+1) && (player->salleY >= (HAUTEUR_ECRAN/2-2*TAILLE_TILE-boxCollision)) && (player->salleY <= (HAUTEUR_ECRAN/2+2*TAILLE_TILE))) {
 					player->labX -= 1;
 					player->salleX = LARGEUR_ECRAN - 4*TAILLE_TILE;
@@ -379,7 +338,7 @@ void PassagePorte(Salle salle[N][M], Player * player) {
 
 		//Si il y a une porte a sud
 		if (salle[player->labY][player->labX].sud == 1) {
-			if ((!salle[player->labY][player->labX].nbMonstres || salle[player->labY][player->labX].explorer) || GOD_MOD) {
+			if ((!salle[player->labY][player->labX].nbMonstres || salle[player->labY+1][player->labX].explorer) || GOD_MOD) {
 				if ((player->salleY >= HAUTEUR_ECRAN-player->tailleY-boxCollision) && (player->salleY <= HAUTEUR_ECRAN) && (player->salleX >= (LARGEUR_ECRAN/2-2*TAILLE_TILE)-boxCollision) && (player->salleX <= (LARGEUR_ECRAN/2+2*TAILLE_TILE)-1)) {
 					player->labY += 1;
 					player->salleX = LARGEUR_ECRAN/2;
@@ -394,7 +353,7 @@ void PassagePorte(Salle salle[N][M], Player * player) {
 
 		//Si il y a une porte a nord
 		if (salle[player->labY][player->labX].nord == 1) {
-			if (!salle[player->labY][player->labX].nbMonstres || salle[player->labY][player->labX].explorer || GOD_MOD) {
+			if ((!salle[player->labY][player->labX].nbMonstres || salle[player->labY-1][player->labX].explorer) || GOD_MOD) {
 				if ((player->salleY >= 0) && (player->salleY <= TAILLE_TILE+1) && (player->salleX >= (LARGEUR_ECRAN/2-2*TAILLE_TILE)-boxCollision) && (player->salleX <= (LARGEUR_ECRAN/2+2*TAILLE_TILE)-1)) {
 					player->labY -= 1;
 					player->salleX = LARGEUR_ECRAN/2;
@@ -487,6 +446,13 @@ void AfficherHUD (SDL_Renderer * rendu, Salle salle[N][M], Player player) {
 	SDL_RenderFillRect(rendu, &hpBar);
 
 
+	char t[10];
+	SDL_Surface * texte;
+	SDL_Texture * texture;
+	SDL_Color couleur = {210, 210, 210};
+	TTF_Font * police = TTF_OpenFont("Font.ttf", 40);
+
+
 	//Armure
 
 	rect.y = HAUTEUR_ECRAN - 120;
@@ -496,9 +462,45 @@ void AfficherHUD (SDL_Renderer * rendu, Salle salle[N][M], Player player) {
     SDL_QueryTexture(T_imgArmor, NULL, NULL, &rect.w, &rect.h);
     SDL_RenderCopy(rendu, T_imgArmor, NULL, &rect);
 
-    SDL_DestroyTexture(T_imgArmor);
+	SDL_DestroyTexture(T_imgArmor);
     SDL_FreeSurface(imgArmor);
 
+
+	sprintf(t, "%d", player.def);
+	texte = TTF_RenderText_Solid(police, t, couleur);
+	texture = SDL_CreateTextureFromSurface(rendu, texte);
+	SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
+	rect.x += 140;
+	SDL_RenderCopy(rendu, texture, NULL, &rect);
+
+	SDL_DestroyTexture(texture);
+   	SDL_FreeSurface(texte);
+
+
+	//Damages
+
+	rect.y = HAUTEUR_ECRAN - 60 - 120;
+	rect.x = LARGEUR_ECRAN/2 + (LARGEUR_ECRAN/2 - (20 + HP_BAR_X));
+    SDL_Surface * imgDamage = IMG_Load("./img/epee.png");
+    SDL_Texture * T_imgDamage = SDL_CreateTextureFromSurface(rendu, imgDamage);
+    SDL_QueryTexture(T_imgDamage, NULL, NULL, &rect.w, &rect.h);
+    SDL_RenderCopy(rendu, T_imgDamage, NULL, &rect);
+
+	SDL_DestroyTexture(T_imgDamage);
+    SDL_FreeSurface(imgDamage);
+
+
+	sprintf(t, "%d", player.damage);
+	texte = TTF_RenderText_Solid(police, t, couleur);
+	texture = SDL_CreateTextureFromSurface(rendu, texte);
+	SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
+	rect.x += 140;
+	SDL_RenderCopy(rendu, texture, NULL, &rect);
+
+	SDL_DestroyTexture(texture);
+   	SDL_FreeSurface(texte);
+
+	TTF_CloseFont(police);
 }	
 
 
@@ -556,4 +558,40 @@ void ChargerPlayer(SDL_Window * screen, Player * player, const char f[50]) {
 	player->tailleY = (player->An->hauteurChar-15)*2;
 	player->tailleX = (player->An->largeurChar-40)*2;
 	player->sp = InitSprite(player->An, player->salleX, player->salleY);
+}
+
+
+/**
+ * \brief Permet de gerer la mort d'un joueur
+*/
+void MortPlayer(Player * player, SDL_Renderer * rendu, SDL_Window * screen, Salle salle[N][M], Labyrinthe * labyrinthe, TTF_Font * police, int * levelActuel) {
+
+    SDL_Color couleur = {255, 255, 255};
+    SDL_Surface * surface = TTF_RenderText_Solid(police, "Tu es mort", couleur);
+    SDL_Texture * texture = SDL_CreateTextureFromSurface(rendu, surface);
+    int texW = 0, texH = 0;
+    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
+    SDL_Rect dstrect = {LARGEUR_ECRAN/2 - texW/2, HAUTEUR_ECRAN/2 - texH/2, texW, texH };
+    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
+    SDL_DestroyTexture(texture);
+    SDL_FreeSurface(surface);
+
+	SDL_RenderPresent(rendu);
+	sleep(3);
+
+	*levelActuel = 1;
+	initLab(labyrinthe);
+	LibererMonstres(salle);
+	LibererPlayer(player);
+	initPlayer(player, screen, "player.txt", 0, 0, LARGEUR_ECRAN/2 - TAILLE_TILE/2, HAUTEUR_ECRAN/2 - TAILLE_TILE/2);
+	initSalle(screen, salle, labyrinthe->mat, *player, *levelActuel);
+	salle[player->labY][player->labX].explorer = 1;
+	int lX, lY;
+	Labyrinthe lab = *labyrinthe;
+	CheminLePlusLong(lab, &lX, &lY);
+	InitialisationBoss(screen, &salle[lY][lX], salle[player->labY][player->labX]);
+	if (sound != NULL) {
+		Mix_FreeMusic(sound);
+		sound = NULL;
+	}
 }

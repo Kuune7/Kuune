@@ -17,6 +17,7 @@
 
 void AfficherSalle(SDL_Renderer * rendu, Salle salle, Player player, int levelActuel);
 void initSalle(SDL_Window * screen, Salle salle[N][M], int mat[N][M], Player player, int level);
+void InitMatSalle(Salle salle[N][M]);
 
 
 #endif

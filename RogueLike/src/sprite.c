@@ -1,12 +1,26 @@
 #include "sprite.h"
 #include <stdlib.h>
 
+/**
+ * \file sprite.c
+ * \brief Fichier contenant les fonctions concernant les sprites
+ * \author HENRY Allan, STER Maxime, GAISNE Maxime, ZHENG Haoran
+ * \version 0.1
+ * \date 20/03/2020
+*/
 
+
+/**
+ * \brief Permet de liberer la memoire d'un sprite
+*/
 void LibererSprite (Sprite * sp) {
     free (sp);
 }
 
 
+/**
+ * \brief Permet d'initialiser les sprites
+*/
 Sprite * InitSprite(Animation * An, int x, int y) {
     Sprite * sp = malloc(sizeof(Sprite));
     sp->sens = 1;
@@ -17,6 +31,10 @@ Sprite * InitSprite(Animation * An, int x, int y) {
     return sp;
 }
 
+
+/**
+ * \brief Permet de faire bouger un sprite du joueur
+*/
 void MouvementSpritePlayer(Sprite * sp, Player player, Status stat) {
 
     sp->stat = stat;
@@ -41,6 +59,10 @@ void MouvementSpritePlayer(Sprite * sp, Player player, Status stat) {
     sp->y = player.salleY;
 }
 
+
+/**
+ * \brief Permet de faire bouger un sprite de mob
+*/
 void MouvementSpriteMob(Sprite * sp, Monstre mob, Status stat) {
 
     sp->stat = stat;

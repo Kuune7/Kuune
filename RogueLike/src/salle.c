@@ -219,3 +219,16 @@ void AfficherSalle(SDL_Renderer * rendu, Salle salle, Player player, int levelAc
 		SDL_RenderFillRect(rendu, &rectVerti);
 	}
 }
+
+/**
+ * \brief Permet d'initialiser la matrice de la salle
+ */
+void InitMatSalle(Salle salle[N][M]) {
+
+	for (int i = 0 ; i < N ; i++) {
+		for (int j = 0 ; j < M ; j++) {
+			salle[i][j].nbMonstres = 0;
+		}
+	} 
+
+}

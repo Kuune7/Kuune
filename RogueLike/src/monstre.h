@@ -21,5 +21,6 @@ void AfficherMobHUD(SDL_Renderer * rendu, Monstre mob);
 void InitMob(SDL_Window * screen, Monstre * mob, Salle salle, int tailleX, int tailleY, int hp, int maxDamage, int minDamage, int boss);
 int TimerMob(Monstre * mob);
 void DeplacementMonstre(Monstre * mob, Player player);
+int  EvolutionMonstres (Salle salle[N][M], Player player, Player * p);
 
 #endif

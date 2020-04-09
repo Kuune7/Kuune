@@ -8,11 +8,10 @@
  * \date 24/02/2020
 */
 
+/**
+ * \brief Permet d'initier un objet
+*/
 void InitObjet (Objet * objet) {
-
-  objet->r = rand()%255;
-  objet->g = rand()%255;
-  objet->b = rand()%255;
 
   int choix = rand()%3;
   switch(choix) {
@@ -31,17 +30,18 @@ void InitObjet (Objet * objet) {
   }
 }
 
+/**
+ * \brief Permet d'initier un objet legendaire
+ */
 void InitObjet_Legendary (Objet * objet) {
-
-  objet->r = rand()%255;
-  objet->g = rand()%255;
-  objet->b = rand()%255;
-
 
   objet->attaque = rand()%MAX_LOOT_DAMAGE_LEGENDARY + MIN_LOOT_DAMAGE_LEGENDARY;
   objet->def = rand()%MAX_LOOT_ARMOR_LEGENDARY + MIN_LOOT_ARMOR_LEGENDARY;
 }
 
+/**
+ * \brief Permet d'initialiser un coffre
+ */
 void InitCoffre(Coffre * coffre, Salle salle) {
 
   coffre->ouvert = 0;
@@ -52,7 +52,9 @@ void InitCoffre(Coffre * coffre, Salle salle) {
   coffre->legendary = 0;
 }
 
-
+/**
+ * \brief Permet d'afficher un coffre
+ */
 void AfficherCoffre(SDL_Renderer * rendu, Coffre coffre) {
 
     SDL_Surface * imageCoffre; 
@@ -86,6 +88,9 @@ void AfficherCoffre(SDL_Renderer * rendu, Coffre coffre) {
 
 }
 
+/**
+ * \brief Permet de gerer la collision d'un acteur avec un coffre
+*/
 int CollisionCoffre(int pX, int pY, int cX, int cY) {
     if (((cX+TAILLE_TILE >= (pX-TAILLE_TILE)) && (cX <= (pX+2*TAILLE_TILE))) && ((cY+TAILLE_TILE >= (pY-TAILLE_TILE)) && (cY <= (pY+2*TAILLE_TILE)))){
         return 1;

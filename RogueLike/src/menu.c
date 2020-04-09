@@ -13,7 +13,7 @@
 /**
  * \brief Permet d'afficher le menu affichants les différentes règles du jeu
 */
-void AfficherMenuRegles (SDL_Renderer * rendu, TTF_Font * police) {
+void AfficherMenuRegles (SDL_Renderer * rendu) {
     
     /******************** AFFICHE LE FOND D'ECRAN ET LE TITLE ***************************/
 
@@ -27,7 +27,7 @@ void AfficherMenuRegles (SDL_Renderer * rendu, TTF_Font * police) {
     SDL_Texture * T_imageTitle = SDL_CreateTextureFromSurface(rendu, imageTitle);
 
     SDL_Rect R_imageFond = {0,0,LARGEUR_ECRAN,HAUTEUR_ECRAN};
-    SDL_Rect R_imageTitle = {0,0,0,0};
+    SDL_Rect R_imageTitle = {10,255,0,0};
 
     SDL_QueryTexture(T_imageTitle, NULL, NULL, &R_imageTitle.w, &R_imageTitle.h);
     R_imageTitle.x = LARGEUR_ECRAN/2 - R_imageTitle.w/2;
@@ -42,8 +42,105 @@ void AfficherMenuRegles (SDL_Renderer * rendu, TTF_Font * police) {
     SDL_FreeSurface(imageFond);
     SDL_DestroyTexture(T_imageFond);
 
-    /************************************************************************************/
+    SDL_Rect R_Cadre = {0,240,LARGEUR_ECRAN,350};
+    SDL_SetRenderDrawColor (rendu, 0, 0, 0, 255);
+    SDL_RenderFillRect(rendu, &R_Cadre);
 
+
+    /************************************************************************************/
+    TTF_Font * police = TTF_OpenFont("Font.ttf", 30);
+    SDL_Color couleur = {255, 255, 255};
+    SDL_Surface * surface = TTF_RenderText_Solid(police, "Bienvenue dans The Forgotten !", couleur);
+    SDL_Texture * texture = SDL_CreateTextureFromSurface(rendu, surface);
+    int texW = 0;
+    int texH = 0;
+    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
+    SDL_Rect dstrect = {10, 250, texW, texH };
+    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
+    SDL_DestroyTexture(texture);
+    SDL_FreeSurface(surface);
+
+    surface = TTF_RenderText_Solid(police, "The Forgotten est un jeu original developpe en langage C a ", couleur);
+    texture = SDL_CreateTextureFromSurface(rendu, surface);
+    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
+    dstrect.y += 60;
+    dstrect.w = texW;
+    dstrect.h = texH;
+    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
+    SDL_DestroyTexture(texture);
+    SDL_FreeSurface(surface);
+
+    surface = TTF_RenderText_Solid(police, "l aide de la bibliotheque SDL2. C est un jeu de type Roguelike ou ", couleur);
+    texture = SDL_CreateTextureFromSurface(rendu, surface);
+    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
+    dstrect.y += 30;
+    dstrect.w = texW;
+    dstrect.h = texH;
+    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
+    SDL_DestroyTexture(texture);
+    SDL_FreeSurface(surface);
+
+    surface = TTF_RenderText_Solid(police, "vous incarnez Lazar, un jeune chevalier perdu dans un donjon ", couleur);
+    texture = SDL_CreateTextureFromSurface(rendu, surface);
+    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
+    dstrect.y += 30;
+    dstrect.w = texW;
+    dstrect.h = texH;
+    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
+    SDL_DestroyTexture(texture);
+    SDL_FreeSurface(surface);
+
+    surface = TTF_RenderText_Solid(police, "rempli de dangereux ennemis. Le but est de progresser a travers ", couleur);
+    texture = SDL_CreateTextureFromSurface(rendu, surface);
+    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
+    dstrect.y += 30;
+    dstrect.w = texW;
+    dstrect.h = texH;
+    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
+    SDL_DestroyTexture(texture);
+    SDL_FreeSurface(surface);
+
+    surface = TTF_RenderText_Solid(police, "les differents etages du donjon, recolter les coffres afin de ", couleur);
+    texture = SDL_CreateTextureFromSurface(rendu, surface);
+    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
+    dstrect.y += 30;
+    dstrect.w = texW;
+    dstrect.h = texH;
+    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
+    SDL_DestroyTexture(texture);
+    SDL_FreeSurface(surface);
+
+    surface = TTF_RenderText_Solid(police, "devenir plus puissant et eliminer tous les ennemis !", couleur);
+    texture = SDL_CreateTextureFromSurface(rendu, surface);
+    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
+    dstrect.y += 30;
+    dstrect.w = texW;
+    dstrect.h = texH;
+    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
+    SDL_DestroyTexture(texture);
+    SDL_FreeSurface(surface);
+
+    surface = TTF_RenderText_Solid(police, "Ce projet est realise dans le cadre de la licence 2 ", couleur);
+    texture = SDL_CreateTextureFromSurface(rendu, surface);
+    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
+    dstrect.y += 60;
+    dstrect.w = texW;
+    dstrect.h = texH;
+    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
+    SDL_DestroyTexture(texture);
+    SDL_FreeSurface(surface);
+
+    surface = TTF_RenderText_Solid(police, "Informatique de l Universite du Mans.", couleur);
+    texture = SDL_CreateTextureFromSurface(rendu, surface);
+    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
+    dstrect.y += 30;
+    dstrect.w = texW;
+    dstrect.h = texH;
+    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
+    SDL_DestroyTexture(texture);
+    SDL_FreeSurface(surface);
+
+    TTF_CloseFont(police);
 
     /******************** AFFICHE LE BOUTON RETURN EN BAS A DROITE ***************************/
 
@@ -296,7 +393,9 @@ void AfficherMenuChargerPartie(SDL_Renderer * rendu, TTF_Font * police) {
 
 }
 
-
+/**
+ * \brief Permet d'afficher le menu du volume
+ */
 void AfficherMenuVolume (SDL_Renderer * rendu, TTF_Font * police) {
 
     /******************** AFFICHE LE FOND D'ECRAN ET LE TITLE ***************************/
@@ -452,7 +551,9 @@ void AfficherMenuSetting(SDL_Renderer * rendu, TTF_Font * police) {
 
 }
 
-
+/**
+ * \brief Fonction permettant de gerer l'affiche du menu des touches
+ */
 void AfficherMenuTouches(SDL_Renderer * rendu, TTF_Font * police) {
 
     /******************** AFFICHE LE FOND D'ECRAN ET LE TITLE ***************************/
@@ -608,7 +709,7 @@ Menu choixMenu (Menu menuActuel) {
 							return Volume;
 						}
 						else if ((event.button.y >= 560 && event.button.y <= 660) && (event.button.x >= 200 && event.button.x <= 800)) { //Save 3
-							
+							return Regle;
 						}
                         else if ((event.button.y >= 602 && event.button.y <= 664) && (event.button.x >= 850 && event.button.x <= 914)) { //Bouton return
                             return Principal;
@@ -668,6 +769,25 @@ Menu choixMenu (Menu menuActuel) {
                 return Quit;
             default:
                 return Touches;
+        }
+    }
+    else if (menuActuel == Regle) {
+        switch (event.type) {
+            case SDL_MOUSEBUTTONUP:
+                switch (event.button.button) {
+                    case SDL_BUTTON_LEFT:
+                        if ((event.button.y >= 602 && event.button.y <= 664) && (event.button.x >= 850 && event.button.x <= 914)) { //Bouton return
+                            return Setting;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case SDL_QUIT:
+                return Quit;
+            default:
+                return Regle;
         }
     }
 
@@ -808,11 +928,7 @@ void AfficherMenuSauvegardeIG (SDL_Renderer * rendu, TTF_Font * police) {
 
 
 /**
-    \brief Affichage du menu In Game. Réalise aussi le traitement du choix du joueur : - Resume : Reprend la partie - Quit : Menu principal
-
-    \return 0 si Resume
-    \return 1 si Menu Principal
-    \return 2 si Quit
+    \brief Affichage du menu en jeu
 */
 void AfficherMenuIG(SDL_Renderer * rendu, TTF_Font * police) {
 
@@ -882,7 +998,10 @@ void AfficherMenuIG(SDL_Renderer * rendu, TTF_Font * police) {
 }
 
 
-
+/**
+ * \brief Permet de gerer les actions dans le menu du jeu en partie
+ * \return Le menu actuel 
+*/
 MenuIG choixMenuIG (SDL_Renderer * rendu, TTF_Font * police, MenuIG menuActuel) {
 
     SDL_Event event;

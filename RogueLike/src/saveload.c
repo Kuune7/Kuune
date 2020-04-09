@@ -16,7 +16,7 @@
  * \brief Fonction nous permettant de sauvegarder une partie dans un fichier avec le nom rentrer en parametre
  * \details La fonction va sauvegarder le labyrinthe (son seed), toutes les informations de la structure player, ainsi que toutes les informations des structures salle 
  */
-void SauvegarderPartie (const char name[30], Labyrinthe labyrinthe, Player player, Salle salle[N][M]) {
+void SauvegarderPartie (const char name[30], Labyrinthe labyrinthe, Player player, Salle salle[N][M], int level) {
 	FILE * fichier = NULL;
 
 	fichier = fopen(name, "w+");
@@ -25,11 +25,13 @@ void SauvegarderPartie (const char name[30], Labyrinthe labyrinthe, Player playe
 	fprintf(fichier,"#Sauvegarde\n%s\n",name);
 	/* Labyrinthe */
 	fprintf(fichier,"#Labyrinthe\nSeed\n%d\n", labyrinthe.seed);
+	/* Level */
+	fprintf(fichier,"#LevelActuel\n%d\n",level);
 	/* Player */
 	fprintf(fichier,"#Player\nPV\n%d\nPVMax\n%d\nCoord_Pl_Salle\n%d %d\nCoord_Pl_Lab\n%d %d\nDamage\n%d\nNbObjets\n%d\n", player.hp, player.hp_max, player.salleX, player.salleY, player.labX, player.labY, player.damage, player.inventaire.nb_objet);
 	fprintf(fichier, "#Inventaire\n");
 	for (int i = 0 ; i < player.inventaire.nb_objet ; i++) {
-		fprintf(fichier, "%d %d %d %d %d", player.inventaire.objet[i].r, player.inventaire.objet[i].g, player.inventaire.objet[i].b, player.inventaire.objet[i].attaque, player.inventaire.objet[i].def);
+		fprintf(fichier, "%d %d", player.inventaire.objet[i].attaque, player.inventaire.objet[i].def);
 		fprintf(fichier, "\n");
 	}
 	/* Salles */
@@ -60,7 +62,7 @@ void SauvegarderPartie (const char name[30], Labyrinthe labyrinthe, Player playe
  * \brief Nous permet de charger une partie, partie précédemment enregister dans un fichier dont le nom est rentrer en paramètre
  * \details la fonction va charger toutes les informations qui sont sauvegarder dans la fonction SauvegarderPartie
 */
-void ChargerPartie (const char name[30], Labyrinthe * labyrinthe, Player * player, Salle salle[N][M]) {
+void ChargerPartie (const char name[30], Labyrinthe * labyrinthe, Player * player, Salle salle[N][M], int * level) {
 	FILE * fichier = NULL;
 
 	fichier = fopen(name, "r");
@@ -74,6 +76,10 @@ void ChargerPartie (const char name[30], Labyrinthe * labyrinthe, Player * playe
 	fscanf(fichier,"%s", buffer); //#Labyrinthe
 	fscanf(fichier,"%s", buffer); //Seed
 	fscanf(fichier,"%d", &labyrinthe->seed); //Seed (int)
+
+	/********** Level ************/
+	fscanf(fichier,"%s", buffer); //#Level
+	fscanf(fichier,"%d", level); //Level (int)
 
 	/********** Player ************/
 	fscanf(fichier,"%s", buffer); //#Player
@@ -91,7 +97,7 @@ void ChargerPartie (const char name[30], Labyrinthe * labyrinthe, Player * playe
 	fscanf(fichier,"%d", &player->inventaire.nb_objet); //NbObjet (int)
 	fscanf(fichier,"%s", buffer); //Inventaire
 	for (int i = 0 ; i < player->inventaire.nb_objet ; i++) {
-		fscanf(fichier, "%d %d %d %d %d", &player->inventaire.objet[i].r, &player->inventaire.objet[i].g, &player->inventaire.objet[i].b, &player->inventaire.objet[i].attaque, &player->inventaire.objet[i].def);
+		fscanf(fichier, "%d %d", &player->inventaire.objet[i].attaque, &player->inventaire.objet[i].def);
 		fscanf(fichier, "\n");
 	}
 

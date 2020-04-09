@@ -17,6 +17,8 @@
 #include <SDL2/SDL_mixer.h>
 #include "sys/timeb.h"
 
+
+/** \brief Permet lors du developpement de pouvoir être invinsible*/
 #define GOD_MOD 0
 
 /** \brief Permet de connaitre le volume avec lequel on doit jouer les sons*/
@@ -63,14 +65,22 @@ int VOLUME;
 /** \brief Constante pour definir le nombre max de coffre */
 #define MAX_COFFRE 3
 
+/** \brief Constante pour definir le nombre min qu'un objet trouver dans un coffre normal peu donner comme degat supplementairet*/
 #define MIN_LOOT_DAMAGE 2
+/** \brief Constante pour definir le nombre max qu'un objet trouver dans un coffre normal peu donner comme degat supplementaire*/
 #define MAX_LOOT_DAMAGE 8
+/** \brief Constante pour definir le nombre min qu'un objet trouver dans un coffre normal peu donner comme armure supplementaire*/
 #define MIN_LOOT_ARMOR 2
+/** \brief Constante pour definir le nombre max qu'un objet trouver dans un coffre normal peu donner comme armure supplementaire*/
 #define MAX_LOOT_ARMOR 8
 
+/** \brief Constante pour definir le nombre min qu'un objet trouver dans un coffre legendaire peu donner comme degat supplementaire*/
 #define MIN_LOOT_DAMAGE_LEGENDARY 10
+/** \brief Constante pour definir le nombre max qu'un objet trouver dans un coffre legendaire peu donner comme degat supplementaire*/
 #define MAX_LOOT_DAMAGE_LEGENDARY 20
+/** \brief Constante pour definir le nombre min qu'un objet trouver dans un coffre legendaire peu donner comme armure supplementaire*/
 #define MIN_LOOT_ARMOR_LEGENDARY 10
+/** \brief Constante pour definir le nombre max qu'un objet trouver dans un coffre legendaire peu donner comme armure supplementaire*/
 #define MAX_LOOT_ARMOR_LEGENDARY 20
 
 /**
@@ -78,7 +88,9 @@ int VOLUME;
 */
 typedef enum {None /** Il n'y a donc aucun couloir possible*/, Nord /** Il y a un couloir possible au nord*/, Sud/** Il y a un couloir possible au sud*/, Est/** Il y a un couloir possible à l'est*/, Ouest/** Il y a un couloir possible à l'ouest*/} Position;
 
-
+/**
+ * \brief Permet de savoir dans quel etat le sprite est actuellement
+*/
 typedef enum e_status {arret, marche, attaque} Status;
 
 /**
@@ -93,13 +105,18 @@ typedef struct {
     int degats;
 } Map;
 
+/**
+ * \brief Structure permettant de gerer chaque partie d'animation
+*/
 typedef struct s_animUnique {
     int depart;
     int longeur;
     int temps;
 } AnimUnique;
 
-
+/**
+ * \brief Structure permettant de contenir les informations necessaire pour gerer les animations
+*/
 typedef struct s_animation {
     SDL_Surface * charset;
     AnimUnique ** tab;
@@ -109,6 +126,9 @@ typedef struct s_animation {
     int nbStats;
 } Animation;
 
+/**
+ * \brief Structure permettant d'avoir les informations necessaire pour gerer un sprite
+*/
 typedef struct s_sprite {
     Status stat;
     int sens;
@@ -121,7 +141,6 @@ typedef struct s_sprite {
  * \brief Permet d'avoir toutes les informations sur un mob dans une même structure 
  */
 typedef struct {
-    int r,g,b;
     /** \brief Points de vies */
     int hp;
     /** \brief Points de vies max*/
@@ -142,7 +161,9 @@ typedef struct {
     struct timeb lastAttack;
     /** \brief Permet de savoir si le mob en question est un boss ou non*/
     int bossFinal;
+    /** \brief Permet de sauvegarder l'animation du monstre*/
     Animation * An;
+    /** \brief Permet de sauvegarder le sprite d'un monstre*/
     Sprite * sp;
 } Monstre;
 
@@ -151,12 +172,6 @@ typedef struct {
  * \brief Permet d'avoir toute les informations sur un objet dans une meme structure
 */
 typedef struct s_objet{
-    /** \brief Permet d'avoir le RGB de l'objet*/
-    int r;
-    /** \brief Permet d'avoir le RGB de l'objet*/
-    int g;
-    /** \brief Permet d'avoir le RGB de l'objet*/
-    int b;
     /** \brief Permet de savoir combien d'attaque ajoutera l'objet*/
     int attaque;
     /** \brief Permet de savoir combien de resistance ajoutera l'objet*/
@@ -211,7 +226,9 @@ typedef struct {
     int nbMonstres;
     /** \brief Permet d'enregistrer les monstres present dans la salle*/
     Monstre monstre[MAX_MONSTRE];
+    /** \brief Permet d'enregistrer le nombre de coffre present dans la salle*/
     int nbCoffre;
+    /** \brief Tableau de structure coffre present dans la salle*/
     Coffre coffre[MAX_COFFRE];
 } Salle;
 
@@ -220,7 +237,9 @@ typedef struct {
     \brief Permet d'avoir toutes les informations sur un joueur dans une même structure
 */
 typedef struct {
+    /** \brief Permet de connaitre la taille du joueur en X*/
     int tailleX;
+    /** \brief Permet de connaitre la taille du joueur en Y*/
     int tailleY;
     /** \brief Désignent la coordonnées X d'où se trouve le joueur dans la salle (0 <= x < TAILLE_SALLE_X) */
     int salleX;
@@ -242,7 +261,9 @@ typedef struct {
     struct timeb lastAttack;
     /** \brief Peremt de gérer l'inventaire du joueur*/
     Inventaire inventaire;
+    /** \brief Permet d'enregistrer le sprite du joueur*/
     Sprite * sp;
+    /** \brief Permet d'enregistrer l'animation du joueur*/
     Animation * An;
 } Player;
 

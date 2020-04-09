@@ -11,8 +11,8 @@
  * \date 09/02/2020
 */
 
-void SauvegarderPartie (const char name[30],Labyrinthe labyrinthe, Player player, Salle salle[N][M]);
-void ChargerPartie (const char name[30], Labyrinthe * labyrinthe, Player * player, Salle salle[N][M]);
+void SauvegarderPartie (const char name[30],Labyrinthe labyrinthe, Player player, Salle salle[N][M], int level);
+void ChargerPartie (const char name[30], Labyrinthe * labyrinthe, Player * player, Salle salle[N][M], int * level);
 void ChargerSon();
 void SauvegarderSon();
 

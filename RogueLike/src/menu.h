@@ -30,7 +30,7 @@
 #define TAILLE_BUTTON_MENU_IG_Y 100
 
 /** Nous permet de savoir dans quel menu nous nous trouvons, pour pouvoir ensuite afficher / gérer en conséquence*/
-typedef enum {Aucun, Principal, New, Load, Quit, Save1, Save2, Save3, Setting, Volume, Touches} Menu;
+typedef enum {Aucun, Principal, New, Load, Quit, Save1, Save2, Save3, Setting, Volume, Touches, Regle} Menu;
 typedef enum {Premier = 1, Resume, ReturnMenu, Quitter, Sauvegarde, Sauvegarde1, Sauvegarde2, Sauvegarde3} MenuIG;
 
 
@@ -42,6 +42,7 @@ void AfficherMenuPrincipal(SDL_Renderer * rendu, TTF_Font * police);
 void AfficherMenuChargerPartie(SDL_Renderer * rendu, TTF_Font * police);
 void AfficherMenuSetting(SDL_Renderer * rendu, TTF_Font * police);
 void AfficherMenuTouches(SDL_Renderer * rendu, TTF_Font * police);
+void AfficherMenuRegles (SDL_Renderer * rendu);
 Menu choixMenu (Menu menuActuel);
 
 #endif
