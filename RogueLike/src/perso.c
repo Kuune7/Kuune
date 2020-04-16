@@ -248,6 +248,12 @@ int ActionSalle(Input * in, SDL_Renderer * rendu, TTF_Font * police, Player * pl
 				}
 				else {
 					InitObjet(&player->damage, &player->def);
+					if (sound != NULL) {
+						Mix_FreeMusic(sound);
+						sound = NULL;
+					}
+					sound = Mix_LoadMUS("./sounds/GetCoffre.wav");
+					Mix_PlayMusic(sound, 1);
 				}
 			}
 		}
