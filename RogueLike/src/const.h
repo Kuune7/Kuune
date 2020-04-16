@@ -101,8 +101,6 @@ typedef struct {
     int id;
     /** Permet de savoir si le bloc present doit etre considerer comme un mur*/
     int mur;
-    /** Permet de savoir si le bloc present doit faire des degats*/
-    int degats;
 } Map;
 
 /**
@@ -169,17 +167,6 @@ typedef struct {
 
 
 /**
- * \brief Permet d'avoir toute les informations sur un objet dans une meme structure
-*/
-typedef struct s_objet{
-    /** \brief Permet de savoir combien d'attaque ajoutera l'objet*/
-    int attaque;
-    /** \brief Permet de savoir combien de resistance ajoutera l'objet*/
-    int def;
-} Objet;
-
-
-/**
  * \brief Permet d'avoir toute les informations sur un coffre dans une meme structure
 */
 typedef struct s_coffre {
@@ -192,17 +179,6 @@ typedef struct s_coffre {
     /** \brief Permet de savoir si c'est un coffre legendaire ou non*/
     int legendary;
 } Coffre;
-
-
-/**
- * \brief Permet d'avoir toute les informations sur l'inventaire du joueur dans une meme structure
-*/
-typedef struct s_inventaire {
-    /** \brief Indique le nombre d'objet présent dans l'inventaire*/
-    int nb_objet;
-    /** \brief Tableau d'objet, nous donnans les informations détailler sur chaque objet*/
-    Objet objet[MAX_OBJET];
-} Inventaire;
 
 /**
  * \brief Permet d'identifié les salles indépendament des autres et d'y avoir toutes les informations nécessaire indépendamment chacune
@@ -259,8 +235,6 @@ typedef struct {
     int def;
     /** \brief Permet d'enregister la derniere attaque d'un joueur*/
     struct timeb lastAttack;
-    /** \brief Peremt de gérer l'inventaire du joueur*/
-    Inventaire inventaire;
     /** \brief Permet d'enregistrer le sprite du joueur*/
     Sprite * sp;
     /** \brief Permet d'enregistrer l'animation du joueur*/
@@ -283,5 +257,7 @@ int valide (int x, int y);
 int valideSalle (int x, int y);
 int verifMinimap(int x, int y);
 int verifHealthBar(int x, int y);
+void AfficherImage(SDL_Renderer * rendu, int x, int y, int w, int h, const char nom[50]);
+void AfficherTexte(SDL_Renderer * rendu, TTF_Font * police, SDL_Color couleur, int x, int y, char texte[128]);
 
 #endif

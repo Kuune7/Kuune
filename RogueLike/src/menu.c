@@ -20,27 +20,8 @@ void AfficherMenuRegles (SDL_Renderer * rendu) {
     SDL_SetRenderDrawColor (rendu, 102, 20, 20, 255);
     SDL_RenderClear(rendu);
 
-    SDL_Surface * imageFond = IMG_Load("./img/fondecran.jpg");
-    SDL_Surface * imageTitle = IMG_Load("./img/ROGUELIKE.png");
-
-    SDL_Texture * T_imageFond = SDL_CreateTextureFromSurface(rendu, imageFond);
-    SDL_Texture * T_imageTitle = SDL_CreateTextureFromSurface(rendu, imageTitle);
-
-    SDL_Rect R_imageFond = {0,0,LARGEUR_ECRAN,HAUTEUR_ECRAN};
-    SDL_Rect R_imageTitle = {10,255,0,0};
-
-    SDL_QueryTexture(T_imageTitle, NULL, NULL, &R_imageTitle.w, &R_imageTitle.h);
-    R_imageTitle.x = LARGEUR_ECRAN/2 - R_imageTitle.w/2;
-    R_imageTitle.y = ((HAUTEUR_ECRAN/NB_BUTTON_MENU_PRINCIPAL) - TAILLE_BUTTON_MENU_PRINCIPAL_Y + 100)/2-R_imageTitle.h/2;
-
-
-    SDL_RenderCopy(rendu, T_imageFond, NULL, &R_imageFond);
-    SDL_RenderCopy(rendu, T_imageTitle, NULL, &R_imageTitle);
-
-    SDL_FreeSurface(imageTitle);
-    SDL_DestroyTexture(T_imageTitle);
-    SDL_FreeSurface(imageFond);
-    SDL_DestroyTexture(T_imageFond);
+    AfficherImage(rendu, 0, 0, LARGEUR_ECRAN, HAUTEUR_ECRAN, "./img/fondecran.jpg");
+    AfficherImage(rendu, LARGEUR_ECRAN/2 - 738/2, ((HAUTEUR_ECRAN/NB_BUTTON_MENU_PRINCIPAL) - TAILLE_BUTTON_MENU_PRINCIPAL_Y + 100)/2-78/2, 0, 0, "./img/ROGUELIKE.png");
 
     SDL_Rect R_Cadre = {0,240,LARGEUR_ECRAN,350};
     SDL_SetRenderDrawColor (rendu, 0, 0, 0, 255);
@@ -50,109 +31,23 @@ void AfficherMenuRegles (SDL_Renderer * rendu) {
     /************************************************************************************/
     TTF_Font * police = TTF_OpenFont("Font.ttf", 30);
     SDL_Color couleur = {255, 255, 255};
-    SDL_Surface * surface = TTF_RenderText_Solid(police, "Bienvenue dans The Forgotten !", couleur);
-    SDL_Texture * texture = SDL_CreateTextureFromSurface(rendu, surface);
-    int texW = 0;
-    int texH = 0;
-    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
-    SDL_Rect dstrect = {10, 250, texW, texH };
-    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(surface);
 
-    surface = TTF_RenderText_Solid(police, "The Forgotten est un jeu original developpe en langage C a ", couleur);
-    texture = SDL_CreateTextureFromSurface(rendu, surface);
-    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
-    dstrect.y += 60;
-    dstrect.w = texW;
-    dstrect.h = texH;
-    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(surface);
-
-    surface = TTF_RenderText_Solid(police, "l aide de la bibliotheque SDL2. C est un jeu de type Roguelike ou ", couleur);
-    texture = SDL_CreateTextureFromSurface(rendu, surface);
-    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
-    dstrect.y += 30;
-    dstrect.w = texW;
-    dstrect.h = texH;
-    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(surface);
-
-    surface = TTF_RenderText_Solid(police, "vous incarnez Lazar, un jeune chevalier perdu dans un donjon ", couleur);
-    texture = SDL_CreateTextureFromSurface(rendu, surface);
-    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
-    dstrect.y += 30;
-    dstrect.w = texW;
-    dstrect.h = texH;
-    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(surface);
-
-    surface = TTF_RenderText_Solid(police, "rempli de dangereux ennemis. Le but est de progresser a travers ", couleur);
-    texture = SDL_CreateTextureFromSurface(rendu, surface);
-    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
-    dstrect.y += 30;
-    dstrect.w = texW;
-    dstrect.h = texH;
-    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(surface);
-
-    surface = TTF_RenderText_Solid(police, "les differents etages du donjon, recolter les coffres afin de ", couleur);
-    texture = SDL_CreateTextureFromSurface(rendu, surface);
-    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
-    dstrect.y += 30;
-    dstrect.w = texW;
-    dstrect.h = texH;
-    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(surface);
-
-    surface = TTF_RenderText_Solid(police, "devenir plus puissant et eliminer tous les ennemis !", couleur);
-    texture = SDL_CreateTextureFromSurface(rendu, surface);
-    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
-    dstrect.y += 30;
-    dstrect.w = texW;
-    dstrect.h = texH;
-    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(surface);
-
-    surface = TTF_RenderText_Solid(police, "Ce projet est realise dans le cadre de la licence 2 ", couleur);
-    texture = SDL_CreateTextureFromSurface(rendu, surface);
-    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
-    dstrect.y += 60;
-    dstrect.w = texW;
-    dstrect.h = texH;
-    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(surface);
-
-    surface = TTF_RenderText_Solid(police, "Informatique de l Universite du Mans.", couleur);
-    texture = SDL_CreateTextureFromSurface(rendu, surface);
-    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
-    dstrect.y += 30;
-    dstrect.w = texW;
-    dstrect.h = texH;
-    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(surface);
+    AfficherTexte(rendu, police, couleur, 10, 250, "Bienvenu dans The Forgotten !");
+    AfficherTexte(rendu, police, couleur, 10, 310, "The Forgotten est un jeu original developpe en langage C a ");
+    AfficherTexte(rendu, police, couleur, 10, 340, "l aide de la bibliotheque SDL2. C est un jeu de type Roguelike ou ");
+    AfficherTexte(rendu, police, couleur, 10, 370, "vous incarnez Lazar, un jeune chevalier perdu dans un donjon ");
+    AfficherTexte(rendu, police, couleur, 10, 400, "rempli de dangereux ennemis. Le but est de progresser a travers ");
+    AfficherTexte(rendu, police, couleur, 10, 430, "les differents etages du donjon, recolter les coffres afin de ");
+    AfficherTexte(rendu, police, couleur, 10, 460, "devenir plus puissant et eliminer tous les ennemis !");
+    AfficherTexte(rendu, police, couleur, 10, 490, "Ce projet est realise dans le cadre de la licence 2 ");
+    AfficherTexte(rendu, police, couleur, 10, 550, "Informatique de l Universite du Mans.");
 
     TTF_CloseFont(police);
+    police = NULL;
 
     /******************** AFFICHE LE BOUTON RETURN EN BAS A DROITE ***************************/
 
-    SDL_Rect rectReturn = {LARGEUR_ECRAN - 150, HAUTEUR_ECRAN - 125, 64, 64} ;
-    SDL_Surface * imageReturn = IMG_Load("./img/return.png");
-    SDL_Texture * T_imageReturn = SDL_CreateTextureFromSurface(rendu, imageReturn);
-    SDL_QueryTexture(T_imageReturn, NULL, NULL, &rectReturn.w, &rectReturn.h);
-    SDL_RenderCopy(rendu, T_imageReturn, NULL, &rectReturn);
-
-    SDL_DestroyTexture(T_imageReturn);
-    SDL_FreeSurface(imageReturn);
-
+    AfficherImage(rendu, LARGEUR_ECRAN - 150, HAUTEUR_ECRAN - 150, 0, 0, "./img/return.png");
 }
 
 
@@ -166,34 +61,13 @@ void AfficherMenuPrincipal(SDL_Renderer * rendu, TTF_Font * police) {
     SDL_SetRenderDrawColor (rendu, 102, 20, 20, 255);
     SDL_RenderClear(rendu);
 
-    SDL_Surface * imageFond = IMG_Load("./img/fondecran.jpg");
-    SDL_Surface * imageTitle = IMG_Load("./img/ROGUELIKE.png");
-
-    SDL_Texture * T_imageFond = SDL_CreateTextureFromSurface(rendu, imageFond);
-    SDL_Texture * T_imageTitle = SDL_CreateTextureFromSurface(rendu, imageTitle);
-
-    SDL_Rect R_imageFond = {0,0,LARGEUR_ECRAN,HAUTEUR_ECRAN};
-    SDL_Rect R_imageTitle = {0,0,0,0};
-
-    SDL_QueryTexture(T_imageTitle, NULL, NULL, &R_imageTitle.w, &R_imageTitle.h);
-    R_imageTitle.x = LARGEUR_ECRAN/2 - R_imageTitle.w/2;
-    R_imageTitle.y = ((HAUTEUR_ECRAN/NB_BUTTON_MENU_PRINCIPAL) - TAILLE_BUTTON_MENU_PRINCIPAL_Y + 100)/2-R_imageTitle.h/2;
-
-
-    SDL_RenderCopy(rendu, T_imageFond, NULL, &R_imageFond);
-    SDL_RenderCopy(rendu, T_imageTitle, NULL, &R_imageTitle);
-
-    SDL_FreeSurface(imageTitle);
-    SDL_DestroyTexture(T_imageTitle);
-    SDL_FreeSurface(imageFond);
-    SDL_DestroyTexture(T_imageFond);
+    AfficherImage(rendu, 0, 0, LARGEUR_ECRAN, HAUTEUR_ECRAN, "./img/fondecran.jpg");
+    AfficherImage(rendu, LARGEUR_ECRAN/2 - 738/2, ((HAUTEUR_ECRAN/NB_BUTTON_MENU_PRINCIPAL) - TAILLE_BUTTON_MENU_PRINCIPAL_Y + 100)/2-78/2, 0, 0, "./img/ROGUELIKE.png");
 
     /************************************************************************************/
 
     int ecartCase = TAILLE_BUTTON_MENU_PRINCIPAL_Y + 55;
 
-    //Rectangle plein
-    // {posX, posY, TAILLE_X, TAILLE_Y}
     SDL_Rect rect = {0, 0, TAILLE_BUTTON_MENU_PRINCIPAL_X, TAILLE_BUTTON_MENU_PRINCIPAL_Y};
 
     rect.x = LARGEUR_ECRAN/2 - TAILLE_BUTTON_MENU_PRINCIPAL_X/2;
@@ -210,52 +84,23 @@ void AfficherMenuPrincipal(SDL_Renderer * rendu, TTF_Font * police) {
 
 
     SDL_Color couleur = {255, 255, 255};
-    SDL_Surface * surface = TTF_RenderText_Solid(police, "Nouvelle Partie", couleur);
-    SDL_Texture * texture = SDL_CreateTextureFromSurface(rendu, surface);
-    int texW = 0;
-    int texH = 0;
 
+    int x = rect.x + 55;
+    int y = HAUTEUR_ECRAN/NB_BUTTON_MENU_PRINCIPAL - TAILLE_BUTTON_MENU_PRINCIPAL_Y + 15 + 100;
+    AfficherTexte(rendu, police, couleur, x, y, "Nouvelle Partie");
+    y += ecartCase;
+    AfficherTexte(rendu, police, couleur, x, y, "Charger Partie");
+    y += ecartCase;
+    x += 125;
+    AfficherTexte(rendu, police, couleur, x, y, "Quitter");
 
-
-    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
-    SDL_Rect dstrect = {rect.x + 55, HAUTEUR_ECRAN/NB_BUTTON_MENU_PRINCIPAL - TAILLE_BUTTON_MENU_PRINCIPAL_Y + 15 + 100, texW, texH };
-    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(surface);
-
-
-    dstrect.y += ecartCase;
-    surface = TTF_RenderText_Solid(police, "Charger Partie", couleur);
-    texture = SDL_CreateTextureFromSurface(rendu, surface);
-    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
-    dstrect.w = texW;
-    dstrect.h = texH;
-    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(surface);
-
-
-    dstrect.y += ecartCase;
-    dstrect.x += 125;
-    surface = TTF_RenderText_Solid(police, "Quitter", couleur);
-    texture = SDL_CreateTextureFromSurface(rendu, surface);
-    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
-    dstrect.w = texW;
-    dstrect.h = texH;
-    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(surface);
+    TTF_Font * createurs = TTF_OpenFont("Font.ttf", 30);
+    AfficherTexte(rendu, createurs, couleur, 10, HAUTEUR_ECRAN - 50, "Cree par HENRY Allan, STER Maxime, ZHENG Haoran, Gaisne Maxime");
+    TTF_CloseFont(createurs);
 
     /******************** AFFICHE LE BOUTON SETTING EN BAS A DROITE ***************************/
-
-    SDL_Rect rectReturn = {LARGEUR_ECRAN - 150, HAUTEUR_ECRAN - 150, 64, 64} ;
-    SDL_Surface * imageReturn = IMG_Load("./img/setting.png");
-    SDL_Texture * T_imageReturn = SDL_CreateTextureFromSurface(rendu, imageReturn);
-    SDL_QueryTexture(T_imageReturn, NULL, NULL, &rectReturn.w, &rectReturn.h);
-    SDL_RenderCopy(rendu, T_imageReturn, NULL, &rectReturn);
-
-    SDL_DestroyTexture(T_imageReturn);
-    SDL_FreeSurface(imageReturn);
+    
+    AfficherImage(rendu, LARGEUR_ECRAN - 150, HAUTEUR_ECRAN - 150, 0, 0, "./img/setting.png");
 
 }
 
@@ -274,27 +119,8 @@ void AfficherMenuChargerPartie(SDL_Renderer * rendu, TTF_Font * police) {
 
     FILE * fichier;
 
-    SDL_Surface * imageFond = IMG_Load("./img/fondecran.jpg");
-    SDL_Surface * imageTitle = IMG_Load("./img/ROGUELIKE.png");
-
-    SDL_Texture * T_imageFond = SDL_CreateTextureFromSurface(rendu, imageFond);
-    SDL_Texture * T_imageTitle = SDL_CreateTextureFromSurface(rendu, imageTitle);
-
-    SDL_Rect R_imageFond = {0,0,LARGEUR_ECRAN,HAUTEUR_ECRAN};
-    SDL_Rect R_imageTitle = {0,0,0,0};
-
-    SDL_QueryTexture(T_imageTitle, NULL, NULL, &R_imageTitle.w, &R_imageTitle.h);
-    R_imageTitle.x = LARGEUR_ECRAN/2 - R_imageTitle.w/2;
-    R_imageTitle.y = ((HAUTEUR_ECRAN/NB_BUTTON_MENU_PRINCIPAL) - TAILLE_BUTTON_MENU_PRINCIPAL_Y + 100)/2-R_imageTitle.h/2;
-
-
-    SDL_RenderCopy(rendu, T_imageFond, NULL, &R_imageFond);
-    SDL_RenderCopy(rendu, T_imageTitle, NULL, &R_imageTitle);
-
-    SDL_FreeSurface(imageTitle);
-    SDL_DestroyTexture(T_imageTitle);
-    SDL_FreeSurface(imageFond);
-    SDL_DestroyTexture(T_imageFond);
+    AfficherImage(rendu, 0, 0, LARGEUR_ECRAN, HAUTEUR_ECRAN, "./img/fondecran.jpg");
+    AfficherImage(rendu, LARGEUR_ECRAN/2 - 738/2, ((HAUTEUR_ECRAN/NB_BUTTON_MENU_PRINCIPAL) - TAILLE_BUTTON_MENU_PRINCIPAL_Y + 100)/2-78/2, 0, 0, "./img/ROGUELIKE.png");
 
     /************************************************************************************/
 
@@ -312,43 +138,18 @@ void AfficherMenuChargerPartie(SDL_Renderer * rendu, TTF_Font * police) {
     }
 
     SDL_Color couleur = {255, 255, 255};
-    SDL_Surface * surface = TTF_RenderText_Solid(police, "Sauvegarde 1", couleur);
-    SDL_Texture * texture = SDL_CreateTextureFromSurface(rendu, surface);
-    int texW = 0;
-    int texH = 0;
 
-
-
-    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
-    SDL_Rect dstrect = {rect.x + 75, HAUTEUR_ECRAN/NB_BUTTON_MENU_PRINCIPAL - TAILLE_BUTTON_MENU_PRINCIPAL_Y + 115, texW, texH };
-    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(surface);
-
-
-    dstrect.y += ecartCase;
-    surface = TTF_RenderText_Solid(police, "Sauvegarde 2", couleur);
-    texture = SDL_CreateTextureFromSurface(rendu, surface);
-    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
-    dstrect.w = texW;
-    dstrect.h = texH;
-    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(surface);
-
-
-    dstrect.y += ecartCase;
-    surface = TTF_RenderText_Solid(police, "Sauvegarde 3", couleur);
-    texture = SDL_CreateTextureFromSurface(rendu, surface);
-    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
-    dstrect.w = texW;
-    dstrect.h = texH;
-    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(surface);
+    int x = rect.x + 75;
+    int y = HAUTEUR_ECRAN/NB_BUTTON_MENU_PRINCIPAL - TAILLE_BUTTON_MENU_PRINCIPAL_Y + 15 + 100;
+    AfficherTexte(rendu, police, couleur, x, y, "Sauvegarde 1");
+    y += ecartCase;
+    AfficherTexte(rendu, police, couleur, x, y, "Sauvegarde 2");
+    y += ecartCase;
+    AfficherTexte(rendu, police, couleur, x, y, "Sauvegarde 3");
 
     SDL_SetRenderDrawColor (rendu, 20, 20, 20, 100);
 
+    //On va assombrir les boutons si aucune sauvegarde n°x est trouver
     rect.y = (HAUTEUR_ECRAN/NB_BUTTON_MENU_PRINCIPAL) - TAILLE_BUTTON_MENU_PRINCIPAL_Y + 100;
     rect.x = LARGEUR_ECRAN/2 - TAILLE_BUTTON_MENU_PRINCIPAL_X/2;
     rect.w = TAILLE_BUTTON_MENU_PRINCIPAL_X;
@@ -382,14 +183,7 @@ void AfficherMenuChargerPartie(SDL_Renderer * rendu, TTF_Font * police) {
 
     /******************** AFFICHE LE BOUTON RETURN EN BAS A DROITE ***************************/
 
-    SDL_Rect rectReturn = {LARGEUR_ECRAN - 150, HAUTEUR_ECRAN - 150, 64, 64} ;
-    SDL_Surface * imageReturn = IMG_Load("./img/return.png");
-    SDL_Texture * T_imageReturn = SDL_CreateTextureFromSurface(rendu, imageReturn);
-    SDL_QueryTexture(T_imageReturn, NULL, NULL, &rectReturn.w, &rectReturn.h);
-    SDL_RenderCopy(rendu, T_imageReturn, NULL, &rectReturn);
-
-    SDL_DestroyTexture(T_imageReturn);
-    SDL_FreeSurface(imageReturn);
+    AfficherImage(rendu, LARGEUR_ECRAN - 150, HAUTEUR_ECRAN - 150, 0, 0, "./img/return.png");
 
 }
 
@@ -405,27 +199,8 @@ void AfficherMenuVolume (SDL_Renderer * rendu, TTF_Font * police) {
 
     SDL_SetRenderDrawBlendMode(rendu, SDL_BLENDMODE_BLEND);
 
-    SDL_Surface * imageFond = IMG_Load("./img/fondecran.jpg");
-    SDL_Surface * imageTitle = IMG_Load("./img/ROGUELIKE.png");
-
-    SDL_Texture * T_imageFond = SDL_CreateTextureFromSurface(rendu, imageFond);
-    SDL_Texture * T_imageTitle = SDL_CreateTextureFromSurface(rendu, imageTitle);
-
-    SDL_Rect R_imageFond = {0,0,LARGEUR_ECRAN,HAUTEUR_ECRAN};
-    SDL_Rect R_imageTitle = {0,0,0,0};
-
-    SDL_QueryTexture(T_imageTitle, NULL, NULL, &R_imageTitle.w, &R_imageTitle.h);
-    R_imageTitle.x = LARGEUR_ECRAN/2 - R_imageTitle.w/2;
-    R_imageTitle.y = ((HAUTEUR_ECRAN/NB_BUTTON_MENU_PRINCIPAL) - TAILLE_BUTTON_MENU_PRINCIPAL_Y + 100)/2-R_imageTitle.h/2;
-
-
-    SDL_RenderCopy(rendu, T_imageFond, NULL, &R_imageFond);
-    SDL_RenderCopy(rendu, T_imageTitle, NULL, &R_imageTitle);
-
-    SDL_FreeSurface(imageTitle);
-    SDL_DestroyTexture(T_imageTitle);
-    SDL_FreeSurface(imageFond);
-    SDL_DestroyTexture(T_imageFond);
+    AfficherImage(rendu, 0, 0, LARGEUR_ECRAN, HAUTEUR_ECRAN, "./img/fondecran.jpg");
+    AfficherImage(rendu, LARGEUR_ECRAN/2 - 738/2, ((HAUTEUR_ECRAN/NB_BUTTON_MENU_PRINCIPAL) - TAILLE_BUTTON_MENU_PRINCIPAL_Y + 100)/2-78/2, 0, 0, "./img/ROGUELIKE.png");
 
     /************************************************************************************/
 
@@ -442,15 +217,7 @@ void AfficherMenuVolume (SDL_Renderer * rendu, TTF_Font * police) {
 
     /******************** AFFICHE LE BOUTON RETURN EN BAS A DROITE ***************************/
 
-    SDL_Rect rectReturn = {LARGEUR_ECRAN - 150, HAUTEUR_ECRAN - 150, 64, 64} ;
-    SDL_Surface * imageReturn = IMG_Load("./img/return.png");
-    SDL_Texture * T_imageReturn = SDL_CreateTextureFromSurface(rendu, imageReturn);
-    SDL_QueryTexture(T_imageReturn, NULL, NULL, &rectReturn.w, &rectReturn.h);
-    SDL_RenderCopy(rendu, T_imageReturn, NULL, &rectReturn);
-
-    SDL_DestroyTexture(T_imageReturn);
-    SDL_FreeSurface(imageReturn);
-
+    AfficherImage(rendu, LARGEUR_ECRAN - 150, HAUTEUR_ECRAN - 150, 0, 0, "./img/return.png");
 }
 
 
@@ -466,34 +233,13 @@ void AfficherMenuSetting(SDL_Renderer * rendu, TTF_Font * police) {
 
     SDL_SetRenderDrawBlendMode(rendu, SDL_BLENDMODE_BLEND);
 
-    SDL_Surface * imageFond = IMG_Load("./img/fondecran.jpg");
-    SDL_Surface * imageTitle = IMG_Load("./img/ROGUELIKE.png");
-
-    SDL_Texture * T_imageFond = SDL_CreateTextureFromSurface(rendu, imageFond);
-    SDL_Texture * T_imageTitle = SDL_CreateTextureFromSurface(rendu, imageTitle);
-
-    SDL_Rect R_imageFond = {0,0,LARGEUR_ECRAN,HAUTEUR_ECRAN};
-    SDL_Rect R_imageTitle = {0,0,0,0};
-
-    SDL_QueryTexture(T_imageTitle, NULL, NULL, &R_imageTitle.w, &R_imageTitle.h);
-    R_imageTitle.x = LARGEUR_ECRAN/2 - R_imageTitle.w/2;
-    R_imageTitle.y = ((HAUTEUR_ECRAN/NB_BUTTON_MENU_PRINCIPAL) - TAILLE_BUTTON_MENU_PRINCIPAL_Y + 100)/2-R_imageTitle.h/2;
-
-
-    SDL_RenderCopy(rendu, T_imageFond, NULL, &R_imageFond);
-    SDL_RenderCopy(rendu, T_imageTitle, NULL, &R_imageTitle);
-
-    SDL_FreeSurface(imageTitle);
-    SDL_DestroyTexture(T_imageTitle);
-    SDL_FreeSurface(imageFond);
-    SDL_DestroyTexture(T_imageFond);
+    AfficherImage(rendu, 0, 0, LARGEUR_ECRAN, HAUTEUR_ECRAN, "./img/fondecran.jpg");
+    AfficherImage(rendu, LARGEUR_ECRAN/2 - 738/2, ((HAUTEUR_ECRAN/NB_BUTTON_MENU_PRINCIPAL) - TAILLE_BUTTON_MENU_PRINCIPAL_Y + 100)/2-78/2, 0, 0, "./img/ROGUELIKE.png");
 
     /************************************************************************************/
 
     int ecartCase = TAILLE_BUTTON_MENU_PRINCIPAL_Y + 55;
 
-    //Rectangle plein
-    // {posX, posY, TAILLE_X, TAILLE_Y}
     SDL_Rect rect = {LARGEUR_ECRAN/2 - TAILLE_BUTTON_MENU_PRINCIPAL_X/2, (HAUTEUR_ECRAN/NB_BUTTON_MENU_PRINCIPAL) - TAILLE_BUTTON_MENU_PRINCIPAL_Y + 100, TAILLE_BUTTON_MENU_PRINCIPAL_X, TAILLE_BUTTON_MENU_PRINCIPAL_Y};
 
     SDL_SetRenderDrawColor (rendu, 100, 100, 100, 200);
@@ -504,50 +250,21 @@ void AfficherMenuSetting(SDL_Renderer * rendu, TTF_Font * police) {
     }
 
     SDL_Color couleur = {255, 255, 255};
-    SDL_Surface * surface = TTF_RenderText_Solid(police, "Touches", couleur);
-    SDL_Texture * texture = SDL_CreateTextureFromSurface(rendu, surface);
-    int texW = 0;
-    int texH = 0;
-    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
-    SDL_Rect dstrect = {rect.x + 150, HAUTEUR_ECRAN/NB_BUTTON_MENU_PRINCIPAL - TAILLE_BUTTON_MENU_PRINCIPAL_Y + 115, texW, texH };
-    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(surface);
 
+    int x = rect.x + 150;
+    int y = HAUTEUR_ECRAN/NB_BUTTON_MENU_PRINCIPAL - TAILLE_BUTTON_MENU_PRINCIPAL_Y + 115;
+    AfficherTexte(rendu, police, couleur, x, y, "Touches");
+    y += ecartCase;
+    x += 30;
+    AfficherTexte(rendu, police, couleur, x, y, "Volume");
+    y += ecartCase;
+    x += 5;
+    AfficherTexte(rendu, police, couleur, x, y, "Regles");
 
-    dstrect.x += 30;
-    dstrect.y += ecartCase;
-    surface = TTF_RenderText_Solid(police, "Volume", couleur);
-    texture = SDL_CreateTextureFromSurface(rendu, surface);
-    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
-    dstrect.w = texW;
-    dstrect.h = texH;
-    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(surface);
-
-
-    dstrect.x += 5;
-    dstrect.y += ecartCase;
-    surface = TTF_RenderText_Solid(police, "Regles", couleur);
-    texture = SDL_CreateTextureFromSurface(rendu, surface);
-    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
-    dstrect.w = texW;
-    dstrect.h = texH;
-    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(surface);
 
     /******************** AFFICHE LE BOUTON RETURN EN BAS A DROITE ***************************/
 
-    SDL_Rect rectReturn = {LARGEUR_ECRAN - 150, HAUTEUR_ECRAN - 150, 64, 64} ;
-    SDL_Surface * imageReturn = IMG_Load("./img/return.png");
-    SDL_Texture * T_imageReturn = SDL_CreateTextureFromSurface(rendu, imageReturn);
-    SDL_QueryTexture(T_imageReturn, NULL, NULL, &rectReturn.w, &rectReturn.h);
-    SDL_RenderCopy(rendu, T_imageReturn, NULL, &rectReturn);
-
-    SDL_DestroyTexture(T_imageReturn);
-    SDL_FreeSurface(imageReturn);
+    AfficherImage(rendu, LARGEUR_ECRAN - 150, HAUTEUR_ECRAN - 150, 0, 0, "./img/return.png");
 
 }
 
@@ -563,27 +280,8 @@ void AfficherMenuTouches(SDL_Renderer * rendu, TTF_Font * police) {
 
     SDL_SetRenderDrawBlendMode(rendu, SDL_BLENDMODE_BLEND);
 
-    SDL_Surface * imageFond = IMG_Load("./img/fondecran.jpg");
-    SDL_Surface * imageTitle = IMG_Load("./img/ROGUELIKE.png");
-
-    SDL_Texture * T_imageFond = SDL_CreateTextureFromSurface(rendu, imageFond);
-    SDL_Texture * T_imageTitle = SDL_CreateTextureFromSurface(rendu, imageTitle);
-
-    SDL_Rect R_imageFond = {0,0,LARGEUR_ECRAN,HAUTEUR_ECRAN};
-    SDL_Rect R_imageTitle = {0,0,0,0};
-
-    SDL_QueryTexture(T_imageTitle, NULL, NULL, &R_imageTitle.w, &R_imageTitle.h);
-    R_imageTitle.x = LARGEUR_ECRAN/2 - R_imageTitle.w/2;
-    R_imageTitle.y = ((HAUTEUR_ECRAN/NB_BUTTON_MENU_PRINCIPAL) - TAILLE_BUTTON_MENU_PRINCIPAL_Y + 100)/2-R_imageTitle.h/2;
-
-
-    SDL_RenderCopy(rendu, T_imageFond, NULL, &R_imageFond);
-    SDL_RenderCopy(rendu, T_imageTitle, NULL, &R_imageTitle);
-
-    SDL_FreeSurface(imageTitle);
-    SDL_DestroyTexture(T_imageTitle);
-    SDL_FreeSurface(imageFond);
-    SDL_DestroyTexture(T_imageFond);
+    AfficherImage(rendu, 0, 0, LARGEUR_ECRAN, HAUTEUR_ECRAN, "./img/fondecran.jpg");
+    AfficherImage(rendu, LARGEUR_ECRAN/2 - 738/2, ((HAUTEUR_ECRAN/NB_BUTTON_MENU_PRINCIPAL) - TAILLE_BUTTON_MENU_PRINCIPAL_Y + 100)/2-78/2, 0, 0, "./img/ROGUELIKE.png");
 
     /************************************************************************************/
 
@@ -598,6 +296,10 @@ void AfficherMenuTouches(SDL_Renderer * rendu, TTF_Font * police) {
         rect.y += ecartCase;
     }
 
+
+
+
+
     rect.x = LARGEUR_ECRAN/2 + (LARGEUR_ECRAN/2 - 400);
     rect.y = HAUTEUR_ECRAN/2 - 150;
     for (int i = 0 ; i < 5 ; i++) {
@@ -605,16 +307,11 @@ void AfficherMenuTouches(SDL_Renderer * rendu, TTF_Font * police) {
         rect.y += ecartCase;
     }
 
+
+
     /******************** AFFICHE LE BOUTON RETURN EN BAS A DROITE ***************************/
 
-    SDL_Rect rectReturn = {LARGEUR_ECRAN - 150, HAUTEUR_ECRAN - 125, 64, 64} ;
-    SDL_Surface * imageReturn = IMG_Load("./img/return.png");
-    SDL_Texture * T_imageReturn = SDL_CreateTextureFromSurface(rendu, imageReturn);
-    SDL_QueryTexture(T_imageReturn, NULL, NULL, &rectReturn.w, &rectReturn.h);
-    SDL_RenderCopy(rendu, T_imageReturn, NULL, &rectReturn);
-
-    SDL_DestroyTexture(T_imageReturn);
-    SDL_FreeSurface(imageReturn);
+    AfficherImage(rendu, LARGEUR_ECRAN - 150, HAUTEUR_ECRAN - 150, 0, 0, "./img/return.png");
 }
 
 
@@ -810,66 +507,24 @@ void AfficherMenuSauvegardeIG (SDL_Renderer * rendu, TTF_Font * police) {
     SDL_SetRenderDrawBlendMode(rendu, SDL_BLENDMODE_BLEND);
 
     SDL_Color couleur = {255, 255, 255};
-    SDL_Surface *texte = NULL;
-    SDL_Texture * texture = NULL;
     SDL_Rect rect = {LARGEUR_ECRAN/2 - TAILLE_BUTTON_MENU_IG_X/2, (HAUTEUR_ECRAN/NB_BUTTON_MENU_IG) - TAILLE_BUTTON_MENU_PRINCIPAL_Y, TAILLE_BUTTON_MENU_IG_X, TAILLE_BUTTON_MENU_IG_Y};
-
-    int texW = 0;
-    int texH = 0;
-
 
     SDL_SetRenderDrawColor (rendu, 102, 20, 20, 200);
 
-    //Btn Resume
-    SDL_RenderFillRect(rendu, &rect);
-    texte = TTF_RenderText_Solid(police, "Sauvegarde 1", couleur);
-    texture = SDL_CreateTextureFromSurface(rendu, texte);
-    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH); //On va savoir la taille exacte de la texture pour pas la redimensionner 
-    rect.x += 10;
-    rect.y += 15;
-    rect.w = texW;
-    rect.h = texH;
-    SDL_RenderCopy(rendu, texture, NULL, &rect);
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(texte);
+    for (int i = 0 ; i < 3 ; i++) {
+        SDL_RenderFillRect(rendu, &rect);
+        rect.y += 150;
+    }
+
+    int x = rect.x + 10;
+    int y = (HAUTEUR_ECRAN/NB_BUTTON_MENU_IG) - TAILLE_BUTTON_MENU_PRINCIPAL_Y + 15;
+    AfficherTexte(rendu, police, couleur, x, y, "Sauvegarde 1");
+    y += 150;
+    AfficherTexte(rendu, police, couleur, x, y, "Sauvegarde 2");
+    y += 150;
+    AfficherTexte(rendu, police, couleur, x, y, "Sauvegarde 3");
 
 
-     //Btn Quit
-    rect.x -= 10;
-    rect.y += 150;
-    rect.w = TAILLE_BUTTON_MENU_IG_X;
-    rect.h = TAILLE_BUTTON_MENU_IG_Y;
-    SDL_RenderFillRect(rendu, &rect);
-    texte = TTF_RenderText_Solid(police, "Sauvegarde 2", couleur);
-    texture = SDL_CreateTextureFromSurface(rendu, texte);
-    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH); //On va savoir la taille exacte de la texture pour pas la redimensionner 
-    rect.x += 10;
-    rect.y += 15;
-    rect.w = texW;
-    rect.h = texH;
-    SDL_RenderCopy(rendu, texture, NULL, &rect);
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(texte);
-
-
-    //Btn Quit
-    rect.x -= 10;
-    rect.y += 150;
-    rect.w = TAILLE_BUTTON_MENU_IG_X;
-    rect.h = TAILLE_BUTTON_MENU_IG_Y;
-    SDL_RenderFillRect(rendu, &rect);
-    texte = TTF_RenderText_Solid(police, "Sauvegarde 3", couleur);
-    texture = SDL_CreateTextureFromSurface(rendu, texte);
-    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH); //On va savoir la taille exacte de la texture pour pas la redimensionner 
-    rect.x += 10;
-    rect.y += 15;
-    rect.w = texW;
-    rect.h = texH;
-    SDL_RenderCopy(rendu, texture, NULL, &rect);
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(texte);
-
-    rect.x -= 10;
 
     SDL_SetRenderDrawColor (rendu, 20, 20, 20, 100);
     FILE * fichier = NULL;
@@ -885,7 +540,7 @@ void AfficherMenuSauvegardeIG (SDL_Renderer * rendu, TTF_Font * police) {
         fclose(fichier);
     }
 
-    rect.y += 165;
+    rect.y += 150;
     fichier = fopen("./saves/Save2.txt", "r");
     if (fichier == NULL) {
         SDL_RenderFillRect(rendu, &rect);
@@ -894,7 +549,7 @@ void AfficherMenuSauvegardeIG (SDL_Renderer * rendu, TTF_Font * police) {
         fclose(fichier);
     }
 
-    rect.y += 165;
+    rect.y += 150;
     fichier = fopen("./saves/Save3.txt", "r");
     if (fichier == NULL) {
         SDL_RenderFillRect(rendu, &rect);
@@ -909,17 +564,7 @@ void AfficherMenuSauvegardeIG (SDL_Renderer * rendu, TTF_Font * police) {
     SDL_Rect rectReturn = {LARGEUR_ECRAN - 300, HAUTEUR_ECRAN - 150, rect.w/2, rect.h} ;
     SDL_RenderFillRect(rendu, &rectReturn);
 
-    rect.x = rectReturn.x + 5;
-    rect.y = rectReturn.y + 15;
-    texte = TTF_RenderText_Solid(police, "Retour", couleur);
-    texture = SDL_CreateTextureFromSurface(rendu, texte);
-    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
-    rect.w = texW;
-    rect.h = texH;
-    SDL_RenderCopy(rendu, texture, NULL, &rect);
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(texte);
-
+    AfficherTexte(rendu, police, couleur, rectReturn.x + 5, rectReturn.y + 15, "Retour");
 
     SDL_RenderPresent(rendu);
 }
@@ -935,64 +580,24 @@ void AfficherMenuIG(SDL_Renderer * rendu, TTF_Font * police) {
     SDL_SetRenderDrawBlendMode(rendu, SDL_BLENDMODE_BLEND);
 
     SDL_Color couleur = {255, 255, 255};
-    SDL_Surface *texte = NULL;
-    SDL_Texture * texture = NULL;
     SDL_Rect rect = {LARGEUR_ECRAN/2 - TAILLE_BUTTON_MENU_IG_X/2, (HAUTEUR_ECRAN/NB_BUTTON_MENU_IG) - TAILLE_BUTTON_MENU_PRINCIPAL_Y, TAILLE_BUTTON_MENU_IG_X, TAILLE_BUTTON_MENU_IG_Y};
-
-    int texW = 0;
-    int texH = 0;
-
 
     SDL_SetRenderDrawColor (rendu, 102, 20, 20, 200);
 
-    //Btn Resume
-    SDL_RenderFillRect(rendu, &rect);
-    texte = TTF_RenderText_Solid(police, "Reprendre", couleur);
-    texture = SDL_CreateTextureFromSurface(rendu, texte);
-    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH); //On va savoir la taille exacte de la texture pour pas la redimensionner 
-    rect.x += 55;
-    rect.y += 15;
-    rect.w = texW;
-    rect.h = texH;
-    SDL_RenderCopy(rendu, texture, NULL, &rect);
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(texte);
+    for (int i = 0 ; i < 3 ; i++) {
+        SDL_RenderFillRect(rendu, &rect);
+        rect.y += 150;
+    }
 
-
-     //Btn Quit
-    rect.x -= 55;
-    rect.y += 150;
-    rect.w = TAILLE_BUTTON_MENU_IG_X;
-    rect.h = TAILLE_BUTTON_MENU_IG_Y;
-    SDL_RenderFillRect(rendu, &rect);
-    texte = TTF_RenderText_Solid(police, "Sauvegarder", couleur);
-    texture = SDL_CreateTextureFromSurface(rendu, texte);
-    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH); //On va savoir la taille exacte de la texture pour pas la redimensionner 
-    rect.x += 20;
-    rect.y += 15;
-    rect.w = texW;
-    rect.h = texH;
-    SDL_RenderCopy(rendu, texture, NULL, &rect);
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(texte);
-
-
-    //Btn Quit
-    rect.x -= 20;
-    rect.y += 150;
-    rect.w = TAILLE_BUTTON_MENU_IG_X;
-    rect.h = TAILLE_BUTTON_MENU_IG_Y;
-    SDL_RenderFillRect(rendu, &rect);
-    texte = TTF_RenderText_Solid(police, "Quitter", couleur);
-    texture = SDL_CreateTextureFromSurface(rendu, texte);
-    SDL_QueryTexture(texture, NULL, NULL, &texW, &texH); //On va savoir la taille exacte de la texture pour pas la redimensionner 
-    rect.x += 100;
-    rect.y += 15;
-    rect.w = texW;
-    rect.h = texH;
-    SDL_RenderCopy(rendu, texture, NULL, &rect);
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(texte);
+    int x = rect.x + 55;
+    int y = (HAUTEUR_ECRAN/NB_BUTTON_MENU_IG) - TAILLE_BUTTON_MENU_PRINCIPAL_Y + 15;
+    AfficherTexte(rendu, police, couleur, x, y, "Reprendre");
+    y += 150;
+    x -= 40;
+    AfficherTexte(rendu, police, couleur, x, y, "Sauvegarder");
+    y += 150;
+    x += 90;
+    AfficherTexte(rendu, police, couleur, x, y, "Quitter");
 
     SDL_RenderPresent(rendu);
 }

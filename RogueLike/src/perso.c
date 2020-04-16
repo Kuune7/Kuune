@@ -239,7 +239,7 @@ int ActionSalle(Input * in, SDL_Renderer * rendu, TTF_Font * police, Player * pl
 			if (CollisionCoffre(player->salleX, player->salleY, salleSave[player->labY][player->labX].coffre[i].salleX, salleSave[player->labY][player->labX].coffre[i].salleY) && !salleSave[player->labY][player->labX].coffre[i].ouvert) {
 				salleSave[player->labY][player->labX].coffre[i].ouvert = 1;
 				if (salleSave[player->labY][player->labX].coffre[i].legendary) {
-					InitObjet_Legendary(&player->inventaire.objet[player->inventaire.nb_objet]);
+					InitObjet_Legendary(&player->damage, &player->def);
 					*levelActuel += 1;
 					AfficherCoffre(rendu, salleSave[player->labY][player->labX].coffre[i]);
 					SDL_RenderPresent(rendu);
@@ -247,11 +247,8 @@ int ActionSalle(Input * in, SDL_Renderer * rendu, TTF_Font * police, Player * pl
 					return 1;
 				}
 				else {
-					InitObjet(&player->inventaire.objet[player->inventaire.nb_objet]);
+					InitObjet(&player->damage, &player->def);
 				}
-				player->damage += player->inventaire.objet[player->inventaire.nb_objet].attaque;
-				player->def += player->inventaire.objet[player->inventaire.nb_objet].def;
-				player->inventaire.nb_objet++;
 			}
 		}
 	}
@@ -517,7 +514,6 @@ void initPlayer(Player * player, SDL_Window *screen, const char f[50], int labX,
 	player->salleX = salleX;
 	player->salleY = salleY;
 	ftime(&player->lastAttack);
-	player->inventaire.nb_objet = 0;
 	player->def = 0;
 	player->tailleY = (player->An->hauteurChar-15)*2;
 	player->tailleX = (player->An->largeurChar-40)*2;

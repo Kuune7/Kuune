@@ -7,12 +7,12 @@
  * \file objet.h
  * \brief Fichier contenant le prototype des fonctions nous permettant de gérer les objets
  * \author HENRY Allan, STER Maxime, GAISNE Maxime, ZHENG Haoran
- * \version 0.1
+ * \version 0.2
  * \date 04/02/2020
 */
 
-void InitObjet (Objet * objet);
-void InitObjet_Legendary (Objet * objet);
+void InitObjet (int * damage, int * def);
+void InitObjet_Legendary (int * damage, int * def);
 void InitCoffre(Coffre * coffre, Salle salle);
 void AfficherCoffre(SDL_Renderer * rendu, Coffre coffre);
 int CollisionCoffre(int pX, int pY, int cX, int cY);

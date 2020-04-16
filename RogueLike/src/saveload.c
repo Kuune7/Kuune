@@ -28,12 +28,7 @@ void SauvegarderPartie (const char name[30], Labyrinthe labyrinthe, Player playe
 	/* Level */
 	fprintf(fichier,"#LevelActuel\n%d\n",level);
 	/* Player */
-	fprintf(fichier,"#Player\nPV\n%d\nPVMax\n%d\nCoord_Pl_Salle\n%d %d\nCoord_Pl_Lab\n%d %d\nDamage\n%d\nNbObjets\n%d\n", player.hp, player.hp_max, player.salleX, player.salleY, player.labX, player.labY, player.damage, player.inventaire.nb_objet);
-	fprintf(fichier, "#Inventaire\n");
-	for (int i = 0 ; i < player.inventaire.nb_objet ; i++) {
-		fprintf(fichier, "%d %d", player.inventaire.objet[i].attaque, player.inventaire.objet[i].def);
-		fprintf(fichier, "\n");
-	}
+	fprintf(fichier,"#Player\nPV\n%d\nPVMax\n%d\nCoord_Pl_Salle\n%d %d\nCoord_Pl_Lab\n%d %d\nDamage\n%d\nDefense\n%d\n", player.hp, player.hp_max, player.salleX, player.salleY, player.labX, player.labY, player.damage, player.def);
 	/* Salles */
 	fprintf(fichier, "#Salles\n");
 	fprintf(fichier, "#Explorer\n");
@@ -43,6 +38,10 @@ void SauvegarderPartie (const char name[30], Labyrinthe labyrinthe, Player playe
 			for (int k = 0 ; k < TAILLE_SALLE_Y ; k++) {
 				for (int p = 0 ; p < TAILLE_SALLE_X ; p++) {
 					fprintf(fichier, "%d ", salle[i][j].matTexture[k][p].id);
+				}
+				fprintf(fichier, "\n");
+				for (int p = 0 ; p < TAILLE_SALLE_X ; p++) {
+					fprintf(fichier, "%d ", salle[i][j].matTexture[k][p].mur);
 				}
 				fprintf(fichier, "\n");
 			}
@@ -93,13 +92,8 @@ void ChargerPartie (const char name[30], Labyrinthe * labyrinthe, Player * playe
 	fscanf(fichier,"%d %d", &player->labX, &player->labY); //labX labY (int)
 	fscanf(fichier,"%s", buffer); //Damage
 	fscanf(fichier,"%d", &player->damage); //Damage (int)
-	fscanf(fichier,"%s", buffer); //NbObjet
-	fscanf(fichier,"%d", &player->inventaire.nb_objet); //NbObjet (int)
-	fscanf(fichier,"%s", buffer); //Inventaire
-	for (int i = 0 ; i < player->inventaire.nb_objet ; i++) {
-		fscanf(fichier, "%d %d", &player->inventaire.objet[i].attaque, &player->inventaire.objet[i].def);
-		fscanf(fichier, "\n");
-	}
+	fscanf(fichier,"%s", buffer); //Defense
+	fscanf(fichier,"%d", &player->def); //Defense (int)
 
 
 	/********** Salles ************/
@@ -111,6 +105,9 @@ void ChargerPartie (const char name[30], Labyrinthe * labyrinthe, Player * playe
 			for (int k = 0 ; k < TAILLE_SALLE_Y ; k++) {
 				for (int p = 0 ; p < TAILLE_SALLE_X ; p++) {
 					fscanf(fichier, "%d", &salle[i][j].matTexture[k][p].id);
+				}
+				for (int p = 0 ; p < TAILLE_SALLE_X ; p++) {
+					fscanf(fichier, "%d", &salle[i][j].matTexture[k][p].mur);
 				}
 			}
 			for (int k = 0 ; k < salle[i][j].nbCoffre ; k++) {
@@ -124,7 +121,9 @@ void ChargerPartie (const char name[30], Labyrinthe * labyrinthe, Player * playe
 }
 
 
-
+/**
+ * \brief Permet de sauvegarder le volume dans un fichier pour pouvoir avoir le même volume apres redemarrage du jeu
+ */
 void SauvegarderSon () {
 	FILE * f = NULL;
 	f = fopen("./saves/Son.txt", "w+");
@@ -135,11 +134,13 @@ void SauvegarderSon () {
 	fclose(f);
 }
 
-
+/**
+ * \brief Permet de charger le volume enregistrer precedement
+*/
 void ChargerSon () {
 	FILE * f = NULL;
 	f = fopen("./saves/Son.txt", "r");
-	if (f != NULL) {
+	if (f != NULL) { //Si le fichier existe bien // Si le jeu a deja etait lancer
 		char buffer[50];
 		fscanf(f, "%s", buffer);
 		fscanf(f, "%d", &VOLUME);

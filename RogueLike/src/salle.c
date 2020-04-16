@@ -34,7 +34,6 @@ void initSalle(SDL_Window * screen, Salle salle[N][M], int mat[N][M], Player pla
 					if (p == 0 || k == 0 || k == (TAILLE_SALLE_Y-1) || p == (TAILLE_SALLE_X-1)) { // = Mur
 						salle[i][j].matTexture[k][p].id = 0;
 						salle[i][j].matTexture[k][p].mur = 1;
-						salle[i][j].matTexture[k][p].degats = 0;
 					}
 					else { // = Planche
 						choix = rand()%4 + 1;
@@ -54,7 +53,6 @@ void initSalle(SDL_Window * screen, Salle salle[N][M], int mat[N][M], Player pla
 								break;
 						}
 						salle[i][j].matTexture[k][p].mur = 0;
-						salle[i][j].matTexture[k][p].degats = 0;
 					}
 				}
 			}

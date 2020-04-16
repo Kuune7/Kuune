@@ -4,26 +4,26 @@
  * \file objet.c
  * \brief Fichier contenant des fonctions nous permettant de gérer les objets
  * \author HENRY Allan, STER Maxime, GAISNE Maxime, ZHENG Haoran
- * \version 0.1
+ * \version 0.2
  * \date 24/02/2020
 */
 
 /**
  * \brief Permet d'initier un objet
 */
-void InitObjet (Objet * objet) {
+void InitObjet (int * damage, int * def) {
 
   int choix = rand()%3;
   switch(choix) {
     case 0:
-      objet->attaque = rand()%MAX_LOOT_DAMAGE + MIN_LOOT_DAMAGE;
+      (*damage) += rand()%MAX_LOOT_DAMAGE + MIN_LOOT_DAMAGE;
       break;
     case 1:
-      objet->def = rand()%MAX_LOOT_ARMOR + MIN_LOOT_ARMOR;
+      (*def) += rand()%MAX_LOOT_ARMOR + MIN_LOOT_ARMOR;
       break;
     case 2:
-      objet->attaque = rand()%MAX_LOOT_DAMAGE + MIN_LOOT_DAMAGE;
-      objet->def = rand()%MAX_LOOT_ARMOR + MIN_LOOT_ARMOR;
+      (*damage) += rand()%MAX_LOOT_DAMAGE + MIN_LOOT_DAMAGE;
+      (*def) += rand()%MAX_LOOT_ARMOR + MIN_LOOT_ARMOR;
       break;
     default:
       break;
@@ -33,10 +33,10 @@ void InitObjet (Objet * objet) {
 /**
  * \brief Permet d'initier un objet legendaire
  */
-void InitObjet_Legendary (Objet * objet) {
+void InitObjet_Legendary (int * damage, int * def) {
 
-  objet->attaque = rand()%MAX_LOOT_DAMAGE_LEGENDARY + MIN_LOOT_DAMAGE_LEGENDARY;
-  objet->def = rand()%MAX_LOOT_ARMOR_LEGENDARY + MIN_LOOT_ARMOR_LEGENDARY;
+  (*damage) += rand()%MAX_LOOT_DAMAGE_LEGENDARY + MIN_LOOT_DAMAGE_LEGENDARY;
+  (*def) += rand()%MAX_LOOT_ARMOR_LEGENDARY + MIN_LOOT_ARMOR_LEGENDARY;
 }
 
 /**
