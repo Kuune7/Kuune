@@ -41,8 +41,9 @@ void AfficherMenuSauvegardeIG (SDL_Renderer * rendu, TTF_Font * police);
 void AfficherMenuPrincipal(SDL_Renderer * rendu, TTF_Font * police);
 void AfficherMenuChargerPartie(SDL_Renderer * rendu, TTF_Font * police);
 void AfficherMenuSetting(SDL_Renderer * rendu, TTF_Font * police);
-void AfficherMenuTouches(SDL_Renderer * rendu, TTF_Font * police);
+void AfficherMenuTouches(SDL_Renderer * rendu);
 void AfficherMenuRegles (SDL_Renderer * rendu);
+void AfficherInstructions(SDL_Renderer * rendu);
 Menu choixMenu (Menu menuActuel);
 
 #endif

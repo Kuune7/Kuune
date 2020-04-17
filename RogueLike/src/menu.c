@@ -1,5 +1,6 @@
 #include "menu.h"
 #include "saveload.h"
+#include <unistd.h>
 
 /**
  * \file menu.c
@@ -9,6 +10,15 @@
  * \date 04/02/2020
 */
 
+
+/**
+ * \brief Permet d'afficher les informations sur l'HUD avant de lancer une nouvelle partie
+ */
+void AfficherInstructions(SDL_Renderer * rendu) {
+    AfficherImage(rendu, 0, 0, LARGEUR_ECRAN, HAUTEUR_ECRAN, "./img/instruction.png");
+    SDL_RenderPresent(rendu);
+    sleep(10);
+}
 
 /**
  * \brief Permet d'afficher le menu affichants les différentes règles du jeu
@@ -271,7 +281,7 @@ void AfficherMenuSetting(SDL_Renderer * rendu, TTF_Font * police) {
 /**
  * \brief Fonction permettant de gerer l'affiche du menu des touches
  */
-void AfficherMenuTouches(SDL_Renderer * rendu, TTF_Font * police) {
+void AfficherMenuTouches(SDL_Renderer * rendu) {
 
     /******************** AFFICHE LE FOND D'ECRAN ET LE TITLE ***************************/
     
@@ -287,27 +297,45 @@ void AfficherMenuTouches(SDL_Renderer * rendu, TTF_Font * police) {
 
     SDL_SetRenderDrawColor (rendu, 100, 100, 100, 200);
 
-    SDL_Rect rect = {100, HAUTEUR_ECRAN/2 - 150, 300, 60};
+    SDL_Rect R_Cadre = {0,240,LARGEUR_ECRAN,350};
+    SDL_SetRenderDrawColor (rendu, 0, 0, 0, 255);
+    SDL_RenderFillRect(rendu, &R_Cadre);
 
-    int ecartCase = 75;
+    TTF_Font * police = TTF_OpenFont("Font.ttf", 30);
+    SDL_Color couleur = {255, 255, 255};
+    int x = 50, y = 250, ecartTouches = 50;
+    AfficherTexte(rendu, police, couleur, x, y, "Haut");
+    y += ecartTouches;
+    AfficherTexte(rendu, police, couleur, x, y, "Bas");
+    y += ecartTouches;
+    AfficherTexte(rendu, police, couleur, x, y, "Gauche");
+    y += ecartTouches;
+    AfficherTexte(rendu, police, couleur, x, y, "Droite");
+    y += ecartTouches;
+    AfficherTexte(rendu, police, couleur, x, y, "Menu");
+    y += ecartTouches;
+    AfficherTexte(rendu, police, couleur, x, y, "Attaquer");
+    y += ecartTouches;
+    AfficherTexte(rendu, police, couleur, x, y, "Ouvrir coffre");
 
-    for (int i = 0 ; i < 5 ; i++) {
-        SDL_RenderFillRect(rendu, &rect);
-        rect.y += ecartCase;
-    }
+    x = LARGEUR_ECRAN/2;
+    y = 250;
+    AfficherTexte(rendu, police, couleur, x, y, "Z");
+    y += ecartTouches;
+    AfficherTexte(rendu, police, couleur, x, y, "S");
+    y += ecartTouches;
+    AfficherTexte(rendu, police, couleur, x, y, "Q");
+    y += ecartTouches;
+    AfficherTexte(rendu, police, couleur, x, y, "D");
+    y += ecartTouches;
+    AfficherTexte(rendu, police, couleur, x, y, "Echap");
+    y += ecartTouches;
+    AfficherTexte(rendu, police, couleur, x, y, "Clique Souri Gauche");
+    y += ecartTouches;
+    AfficherTexte(rendu, police, couleur, x, y, "F");
 
-
-
-
-
-    rect.x = LARGEUR_ECRAN/2 + (LARGEUR_ECRAN/2 - 400);
-    rect.y = HAUTEUR_ECRAN/2 - 150;
-    for (int i = 0 ; i < 5 ; i++) {
-        SDL_RenderFillRect(rendu, &rect);
-        rect.y += ecartCase;
-    }
-
-
+    TTF_CloseFont(police);
+    police = NULL;
 
     /******************** AFFICHE LE BOUTON RETURN EN BAS A DROITE ***************************/
 

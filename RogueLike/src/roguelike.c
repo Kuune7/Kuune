@@ -67,9 +67,6 @@ void AfficherFPS(SDL_Renderer * rendu, TTF_Font * police) {
 
 
 
-
-
-int i = 0;
 /**
  * \brief Permet de gerer tout l'affichage du jeu
 */
@@ -167,6 +164,7 @@ int main(int argc, char ** argv) {
 					InitialisationBoss(screen, &salle[lY][lX], salle[player.labY][player.labX]);
 					levelActuel = 1;
 					salle[player.labY][player.labX].explorer = 1;
+					AfficherInstructions(rendu);
 					break;
 				case Load:
 					menuActuel = Load;
@@ -215,7 +213,7 @@ int main(int argc, char ** argv) {
 					break;
 				case Touches:
 					menuActuel = Touches;
-					AfficherMenuTouches(rendu, police);
+					AfficherMenuTouches(rendu);
 					break;
 				case Regle:
 					menuActuel = Regle;
