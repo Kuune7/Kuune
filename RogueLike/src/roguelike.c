@@ -122,7 +122,6 @@ int main(int argc, char ** argv) {
 
 	Labyrinthe labyrinthe;
 
-	sound = NULL;
 	VOLUME = MIX_MAX_VOLUME/2;
 	ChargerSon();
 
@@ -134,13 +133,12 @@ int main(int argc, char ** argv) {
 	while (!in.quit) {
 
 		//On va lancer la musique du menu en s'assurant de stoper les sons deja present sur le canal
-		if (sound != NULL) {
-			Mix_FreeMusic(sound);
-			sound = NULL;
+		if (music1 != NULL) {
+			Mix_FreeChunk(music1);
+			music1= NULL;
 		}
-
-		sound = Mix_LoadMUS("./sounds/mainpage.wav");
-		Mix_PlayMusic(sound, 1);
+		music1 = Mix_LoadWAV("./sounds/mainpage.wav");
+		Mix_PlayChannel(-1,music1, -1);
 		Mix_VolumeMusic(VOLUME);
 
 		//Durant que le joueur est dans les menus principaux du jeu
@@ -228,20 +226,22 @@ int main(int argc, char ** argv) {
 		}
 
 		//On va eteindre la musique du menu si elle est encore lancer
-		if (sound != NULL) {
-			Mix_FreeMusic(sound);
-			sound = NULL;
+		if (music1 != NULL) {
+			Mix_FreeChunk(music1);
+			music1= NULL;
 		}
-
+		music1 = Mix_LoadWAV("./sounds/donjon_salle.wav");
+		Mix_PlayChannel(-1,music1, -1);
+		
 		//Durant que le joueur est en partie
 		while (inGame && !in.quit) {
 			
 			UpdateEvents(&in);
 
 			if (ActionSalle(&in, rendu, police, &player, salle[player.labY][player.labX], &inGame, &inMenu, &levelActuel, &menuActuel, salle, labyrinthe)) { //Si on doit up de lvl		
-				if (sound != NULL) {
-					Mix_FreeMusic(sound);
-					sound = NULL;
+				if (music2 != NULL) {
+					Mix_FreeChunk(music2);
+					music2 = NULL;
 				}
 
 				LibererPlayer(&player);
@@ -301,8 +301,12 @@ int main(int argc, char ** argv) {
 		LibererMonstres(salle);
 	}
 
-	if (sound != NULL)
-		Mix_FreeMusic(sound);
+	if (music1 != NULL){
+		Mix_FreeChunk(music1);
+	}
+	if (music2 != NULL){
+		Mix_FreeChunk(music2);
+	}
 
 	Mix_CloseAudio();
 	TTF_Quit();
