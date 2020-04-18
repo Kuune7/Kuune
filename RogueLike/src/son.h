@@ -11,6 +11,7 @@
  * \date 01/03/2020
 */
 
-Mix_Music *sound;
+Mix_Chunk * music1 ;
+Mix_Chunk * music2 ;
 
 #endif
