@@ -237,6 +237,12 @@ int ActionSalle(Input * in, SDL_Renderer * rendu, TTF_Font * police, Player * pl
 	if (in->key[SDLK_f]) {
 		for (int i = 0 ; i < salleSave[player->labY][player->labX].nbCoffre ; i++) {
 			if (CollisionCoffre(player->salleX, player->salleY, salleSave[player->labY][player->labX].coffre[i].salleX, salleSave[player->labY][player->labX].coffre[i].salleY) && !salleSave[player->labY][player->labX].coffre[i].ouvert) {
+				if (music2 != NULL) {
+					Mix_FreeChunk(music2);
+					music2= NULL;
+				}
+				music2 = Mix_LoadWAV("./sounds/GetCoffre.wav");
+				Mix_PlayChannel(-1,music2, 0);
 				salleSave[player->labY][player->labX].coffre[i].ouvert = 1;
 				if (salleSave[player->labY][player->labX].coffre[i].legendary) {
 					InitObjet_Legendary(&player->damage, &player->def);
@@ -248,12 +254,6 @@ int ActionSalle(Input * in, SDL_Renderer * rendu, TTF_Font * police, Player * pl
 				}
 				else {
 					InitObjet(&player->damage, &player->def);
-					if (music2 != NULL) {
-					Mix_FreeChunk(music2);
-					music2= NULL;
-					}
-					music2 = Mix_LoadWAV("./sounds/GetCoffre.wav");
-					Mix_PlayChannel(-1,music2, 0);
 				}
 			}
 		}
