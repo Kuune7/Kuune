@@ -105,7 +105,7 @@ void AfficherMenuPrincipal(SDL_Renderer * rendu, TTF_Font * police) {
     AfficherTexte(rendu, police, couleur, x, y, "Quitter");
 
     TTF_Font * createurs = TTF_OpenFont("Font.ttf", 30);
-    AfficherTexte(rendu, createurs, couleur, 10, HAUTEUR_ECRAN - 50, "Cree par HENRY Allan, STER Maxime, ZHENG Haoran, Gaisne Maxime");
+    AfficherTexte(rendu, createurs, couleur, 10, HAUTEUR_ECRAN - 50, "Cree par Henry Allan, Ster Maxime, Zheng Haoran, Gaisne Maxime");
     TTF_CloseFont(createurs);
 
     /******************** AFFICHE LE BOUTON SETTING EN BAS A DROITE ***************************/
