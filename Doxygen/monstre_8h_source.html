@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RogueLike:  Fichier source de src/monstre.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">RogueLike
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">monstre.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="monstre_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef __MONSTRE__</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define __MONSTRE__</span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="const_8h.html">const.h</a>&quot;</span></div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="perso_8h.html">perso.h</a>&quot;</span></div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keywordtype">void</span> <a class="code" href="monstre_8h.html#a31c6cd697ac75d107ce8e4a868f90721">ChargerMob</a>(SDL_Window * screen, <a class="code" href="structSalle.html">Salle</a> salle[<a class="code" href="const_8h.html#a0240ac851181b84ac374872dc5434ee4">N</a>][<a class="code" href="const_8h.html#a52037c938e3c1b126c6277da5ca689d0">M</a>], <span class="keywordtype">int</span> level);</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keywordtype">void</span> <a class="code" href="monstre_8h.html#ab1668abe1a18fd75afa7a0e0535f41f4">InitialisationBoss</a>(SDL_Window * screen, <a class="code" href="structSalle.html">Salle</a> * salle, <a class="code" href="structSalle.html">Salle</a> s);</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keywordtype">void</span> <a class="code" href="monstre_8h.html#a67d9c70a28298f3f86c3a9db4f8db907">LibererMonstres</a>(<a class="code" href="structSalle.html">Salle</a> salle[<a class="code" href="const_8h.html#a0240ac851181b84ac374872dc5434ee4">N</a>][<a class="code" href="const_8h.html#a52037c938e3c1b126c6277da5ca689d0">M</a>]);</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keywordtype">void</span> <a class="code" href="monstre_8h.html#aa26f2fc86edf0bf110b7bb3d6f04a47c">AfficherMobHUD</a>(SDL_Renderer * rendu, <a class="code" href="structMonstre.html">Monstre</a> mob);</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keywordtype">void</span> <a class="code" href="monstre_8h.html#abb62af13c2a6398a13416b1751eada5d">InitMob</a>(SDL_Window * screen, <a class="code" href="structMonstre.html">Monstre</a> * mob, <a class="code" href="structSalle.html">Salle</a> salle, <span class="keywordtype">int</span> tailleX, <span class="keywordtype">int</span> tailleY, <span class="keywordtype">int</span> hp, <span class="keywordtype">int</span> maxDamage, <span class="keywordtype">int</span> minDamage, <span class="keywordtype">int</span> boss);</div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keywordtype">int</span> <a class="code" href="monstre_8h.html#a87e132bdbe44b54ed13cf94a8bf958bc">TimerMob</a>(<a class="code" href="structMonstre.html">Monstre</a> * mob);</div><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keywordtype">void</span> <a class="code" href="monstre_8h.html#aab86218e63f3c61e5d839e7bd4dce0e3">DeplacementMonstre</a>(<a class="code" href="structMonstre.html">Monstre</a> * mob, <a class="code" href="structPlayer.html">Player</a> player);</div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keywordtype">int</span>  <a class="code" href="monstre_8h.html#aa77fa7c29af0d994685a1929a6bb84b1">EvolutionMonstres</a> (<a class="code" href="structSalle.html">Salle</a> salle[<a class="code" href="const_8h.html#a0240ac851181b84ac374872dc5434ee4">N</a>][<a class="code" href="const_8h.html#a52037c938e3c1b126c6277da5ca689d0">M</a>], <a class="code" href="structPlayer.html">Player</a> player, <a class="code" href="structPlayer.html">Player</a> * p);</div><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#endif</span></div><div class="ttc" id="perso_8h_html"><div class="ttname"><a href="perso_8h.html">perso.h</a></div><div class="ttdoc">Fichier contenant des fonctions nous permettant de gérer la création, la modification et l&amp;#39;affichage ...</div></div>
+<div class="ttc" id="monstre_8h_html_ab1668abe1a18fd75afa7a0e0535f41f4"><div class="ttname"><a href="monstre_8h.html#ab1668abe1a18fd75afa7a0e0535f41f4">InitialisationBoss</a></div><div class="ttdeci">void InitialisationBoss(SDL_Window *screen, Salle *salle, Salle s)</div><div class="ttdoc">Fonction permettant d&amp;#39;initialiser le boss (monstre de la derniere salle) </div><div class="ttdef"><b>Definition:</b> monstre.c:21</div></div>
+<div class="ttc" id="structMonstre_html"><div class="ttname"><a href="structMonstre.html">Monstre</a></div><div class="ttdoc">Permet d&amp;#39;avoir toutes les informations sur un mob dans une même structure. </div><div class="ttdef"><b>Definition:</b> const.h:141</div></div>
+<div class="ttc" id="const_8h_html_a0240ac851181b84ac374872dc5434ee4"><div class="ttname"><a href="const_8h.html#a0240ac851181b84ac374872dc5434ee4">N</a></div><div class="ttdeci">#define N</div><div class="ttdoc">Permet de definir la taille du labyrinthe en Y. </div><div class="ttdef"><b>Definition:</b> const.h:28</div></div>
+<div class="ttc" id="structPlayer_html"><div class="ttname"><a href="structPlayer.html">Player</a></div><div class="ttdoc">Permet d&amp;#39;avoir toutes les informations sur un joueur dans une même structure. </div><div class="ttdef"><b>Definition:</b> const.h:215</div></div>
+<div class="ttc" id="monstre_8h_html_a67d9c70a28298f3f86c3a9db4f8db907"><div class="ttname"><a href="monstre_8h.html#a67d9c70a28298f3f86c3a9db4f8db907">LibererMonstres</a></div><div class="ttdeci">void LibererMonstres(Salle salle[N][M])</div><div class="ttdoc">Permet de liberer la memoire allouer au monstre d&amp;#39;un labyrinthe. </div><div class="ttdef"><b>Definition:</b> monstre.c:193</div></div>
+<div class="ttc" id="monstre_8h_html_a87e132bdbe44b54ed13cf94a8bf958bc"><div class="ttname"><a href="monstre_8h.html#a87e132bdbe44b54ed13cf94a8bf958bc">TimerMob</a></div><div class="ttdeci">int TimerMob(Monstre *mob)</div><div class="ttdoc">Fonction permetttant de gerer le delay entre 2 attaques d&amp;#39;un monstre (1 seconde de delay) ...</div><div class="ttdef"><b>Definition:</b> monstre.c:119</div></div>
+<div class="ttc" id="monstre_8h_html_aab86218e63f3c61e5d839e7bd4dce0e3"><div class="ttname"><a href="monstre_8h.html#aab86218e63f3c61e5d839e7bd4dce0e3">DeplacementMonstre</a></div><div class="ttdeci">void DeplacementMonstre(Monstre *mob, Player player)</div><div class="ttdoc">Fonction permettant de gerer le deplacement du monstre. </div><div class="ttdef"><b>Definition:</b> monstre.c:144</div></div>
+<div class="ttc" id="monstre_8h_html_abb62af13c2a6398a13416b1751eada5d"><div class="ttname"><a href="monstre_8h.html#abb62af13c2a6398a13416b1751eada5d">InitMob</a></div><div class="ttdeci">void InitMob(SDL_Window *screen, Monstre *mob, Salle salle, int tailleX, int tailleY, int hp, int maxDamage, int minDamage, int boss)</div><div class="ttdoc">Fonction permettant d&amp;#39;initialiser un monstre. </div><div class="ttdef"><b>Definition:</b> monstre.c:80</div></div>
+<div class="ttc" id="monstre_8h_html_a31c6cd697ac75d107ce8e4a868f90721"><div class="ttname"><a href="monstre_8h.html#a31c6cd697ac75d107ce8e4a868f90721">ChargerMob</a></div><div class="ttdeci">void ChargerMob(SDL_Window *screen, Salle salle[N][M], int level)</div><div class="ttdoc">permet apres une sauvegarde de recreer des monstres pour les salles non explorer </div><div class="ttdef"><b>Definition:</b> monstre.c:65</div></div>
+<div class="ttc" id="const_8h_html"><div class="ttname"><a href="const_8h.html">const.h</a></div><div class="ttdoc">Fichier contenant les definitions importantes, les prototypes du .c ainsi les typedef en vu de les ut...</div></div>
+<div class="ttc" id="monstre_8h_html_aa26f2fc86edf0bf110b7bb3d6f04a47c"><div class="ttname"><a href="monstre_8h.html#aa26f2fc86edf0bf110b7bb3d6f04a47c">AfficherMobHUD</a></div><div class="ttdeci">void AfficherMobHUD(SDL_Renderer *rendu, Monstre mob)</div><div class="ttdoc">Fonction permettant de gerer la barre de vie au dessus du monstre. </div><div class="ttdef"><b>Definition:</b> monstre.c:32</div></div>
+<div class="ttc" id="monstre_8h_html_aa77fa7c29af0d994685a1929a6bb84b1"><div class="ttname"><a href="monstre_8h.html#aa77fa7c29af0d994685a1929a6bb84b1">EvolutionMonstres</a></div><div class="ttdeci">int EvolutionMonstres(Salle salle[N][M], Player player, Player *p)</div><div class="ttdoc">Permet de gerer l&amp;#39;evolution des monstres. </div><div class="ttdef"><b>Definition:</b> monstre.c:219</div></div>
+<div class="ttc" id="structSalle_html"><div class="ttname"><a href="structSalle.html">Salle</a></div><div class="ttdoc">Permet d&amp;#39;identifié les salles indépendament des autres et d&amp;#39;y avoir toutes les informations nécessair...</div><div class="ttdef"><b>Definition:</b> const.h:186</div></div>
+<div class="ttc" id="const_8h_html_a52037c938e3c1b126c6277da5ca689d0"><div class="ttname"><a href="const_8h.html#a52037c938e3c1b126c6277da5ca689d0">M</a></div><div class="ttdeci">#define M</div><div class="ttdoc">Permet de definir la taille du labyrinthe en X. </div><div class="ttdef"><b>Definition:</b> const.h:30</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>
