@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RogueLike:  Fichier source de src/sprite.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">RogueLike
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">sprite.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="sprite_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef __SPRITE__</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define __SPRITE__</span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="animation_8h.html">animation.h</a>&quot;</span></div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<a class="code" href="structs__sprite.html">Sprite</a> * <a class="code" href="sprite_8h.html#a5f6bc35650782971ec922a63466cbe74">InitSprite</a>(<a class="code" href="structs__animation.html">Animation</a> * An, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);</div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keywordtype">void</span> <a class="code" href="sprite_8h.html#a04ae233caf92a9f59a4dbcb7e6fc8f81">MouvementSpritePlayer</a>(<a class="code" href="structs__sprite.html">Sprite</a> * sp, <a class="code" href="structPlayer.html">Player</a> player, <a class="code" href="const_8h.html#a1781329b031221e816e4094b083a0039">Status</a> stat);</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keywordtype">void</span> <a class="code" href="sprite_8h.html#ab337cc83edd29cde65596d8cbd1284a1">MouvementSpriteMob</a>(<a class="code" href="structs__sprite.html">Sprite</a> * sp, <a class="code" href="structMonstre.html">Monstre</a> mob, <a class="code" href="const_8h.html#a1781329b031221e816e4094b083a0039">Status</a> stat);</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keywordtype">void</span> <a class="code" href="sprite_8h.html#ae611f2fccd542dc50d9d4f3315628191">LibererSprite</a> (<a class="code" href="structs__sprite.html">Sprite</a> * sp);</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#endif</span></div><div class="ttc" id="sprite_8h_html_ab337cc83edd29cde65596d8cbd1284a1"><div class="ttname"><a href="sprite_8h.html#ab337cc83edd29cde65596d8cbd1284a1">MouvementSpriteMob</a></div><div class="ttdeci">void MouvementSpriteMob(Sprite *sp, Monstre mob, Status stat)</div><div class="ttdoc">Permet de faire bouger un sprite de mob. </div><div class="ttdef"><b>Definition:</b> sprite.c:66</div></div>
+<div class="ttc" id="animation_8h_html"><div class="ttname"><a href="animation_8h.html">animation.h</a></div><div class="ttdoc">Fichier contenant le prototype des fonctions qui nous seront utile dans pour le chargement, l&amp;#39;affichage et la suppression d&amp;#39;animation. </div></div>
+<div class="ttc" id="structs__animation_html"><div class="ttname"><a href="structs__animation.html">s_animation</a></div><div class="ttdoc">Structure permettant de contenir les informations necessaire pour gerer les animations. </div><div class="ttdef"><b>Definition:</b> const.h:118</div></div>
+<div class="ttc" id="structMonstre_html"><div class="ttname"><a href="structMonstre.html">Monstre</a></div><div class="ttdoc">Permet d&amp;#39;avoir toutes les informations sur un mob dans une même structure. </div><div class="ttdef"><b>Definition:</b> const.h:141</div></div>
+<div class="ttc" id="structPlayer_html"><div class="ttname"><a href="structPlayer.html">Player</a></div><div class="ttdoc">Permet d&amp;#39;avoir toutes les informations sur un joueur dans une même structure. </div><div class="ttdef"><b>Definition:</b> const.h:215</div></div>
+<div class="ttc" id="sprite_8h_html_a5f6bc35650782971ec922a63466cbe74"><div class="ttname"><a href="sprite_8h.html#a5f6bc35650782971ec922a63466cbe74">InitSprite</a></div><div class="ttdeci">Sprite * InitSprite(Animation *An, int x, int y)</div><div class="ttdoc">Permet d&amp;#39;initialiser les sprites. </div><div class="ttdef"><b>Definition:</b> sprite.c:24</div></div>
+<div class="ttc" id="sprite_8h_html_ae611f2fccd542dc50d9d4f3315628191"><div class="ttname"><a href="sprite_8h.html#ae611f2fccd542dc50d9d4f3315628191">LibererSprite</a></div><div class="ttdeci">void LibererSprite(Sprite *sp)</div><div class="ttdoc">Permet de liberer la memoire d&amp;#39;un sprite. </div><div class="ttdef"><b>Definition:</b> sprite.c:16</div></div>
+<div class="ttc" id="structs__sprite_html"><div class="ttname"><a href="structs__sprite.html">s_sprite</a></div><div class="ttdoc">Structure permettant d&amp;#39;avoir les informations necessaire pour gerer un sprite. </div><div class="ttdef"><b>Definition:</b> const.h:130</div></div>
+<div class="ttc" id="sprite_8h_html_a04ae233caf92a9f59a4dbcb7e6fc8f81"><div class="ttname"><a href="sprite_8h.html#a04ae233caf92a9f59a4dbcb7e6fc8f81">MouvementSpritePlayer</a></div><div class="ttdeci">void MouvementSpritePlayer(Sprite *sp, Player player, Status stat)</div><div class="ttdoc">Permet de faire bouger un sprite du joueur. </div><div class="ttdef"><b>Definition:</b> sprite.c:38</div></div>
+<div class="ttc" id="const_8h_html_a1781329b031221e816e4094b083a0039"><div class="ttname"><a href="const_8h.html#a1781329b031221e816e4094b083a0039">Status</a></div><div class="ttdeci">enum e_status Status</div><div class="ttdoc">Permet de savoir dans quel etat le sprite est actuellement. </div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>
