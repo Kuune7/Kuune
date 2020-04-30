@@ -24,47 +24,6 @@ Menu menuActuel = Principal;
 /** \brief Permet de savoir dans quel niveau le joueur se trouve*/
 int levelActuel = 1;
 
-int fps = 0;
-int n = 0;
-struct timeb lastFPS;
-
-void AfficherFPS(SDL_Renderer * rendu, TTF_Font * police) {
-
-	struct timeb currentFPS;
-
-	char texteTab[5];
-
-	SDL_Rect rect;
-	SDL_Surface * texte;
-	SDL_Color couleur = {94, 148, 0};
-
-	rect.x = 5;
-	rect.y = 5;
-
-	ftime(&currentFPS);
-	int secondes = (int) difftime(currentFPS.time, lastFPS.time);
-	int ms1 = 1000 - lastFPS.millitm;
-    int ms2 = currentFPS.millitm;
-
-	fps++;
-
-	if ((((ms1+ms2) >= 1000) && secondes >= 1) || (secondes >= 2)) {
-		ftime(&lastFPS);
-		n = fps;
-		fps = 0;
-	}
-
-	sprintf(texteTab, "%d", n);
-	texte = TTF_RenderText_Solid(police, texteTab, couleur);
-	SDL_Texture * texture = SDL_CreateTextureFromSurface(rendu, texte);
-	SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
-	SDL_RenderCopy(rendu, texture, NULL, &rect);
-
-	SDL_DestroyTexture(texture);
-	SDL_FreeSurface(texte);
-
-}
-
 
 
 /**
@@ -88,8 +47,6 @@ void Affichage(SDL_Renderer * rendu, TTF_Font * police, Salle salle[N][M], Playe
 
 	AfficherMinimap(rendu, salle, player);
 	AfficherHUD(rendu, salle, player);
-	AfficherFPS(rendu, police);
-
 }
 
 
@@ -122,23 +79,24 @@ int main(int argc, char ** argv) {
 
 	Labyrinthe labyrinthe;
 
+	sound = NULL;
 	VOLUME = MIX_MAX_VOLUME/2;
 	ChargerSon();
 
 	//Initialisation nécessaire
 	InitEvents(&in);
 	InitMatSalle(salle);
-	ftime(&lastFPS);
 
 	while (!in.quit) {
 
 		//On va lancer la musique du menu en s'assurant de stoper les sons deja present sur le canal
-		if (music1 != NULL) {
-			Mix_FreeChunk(music1);
-			music1= NULL;
+		if (sound != NULL) {
+			Mix_FreeMusic(sound);
+			sound = NULL;
 		}
-		music1 = Mix_LoadWAV("./sounds/mainpage.wav");
-		Mix_PlayChannel(-1,music1, -1);
+
+		sound = Mix_LoadMUS("./sounds/mainpage.wav");
+		Mix_PlayMusic(sound, 1);
 		Mix_VolumeMusic(VOLUME);
 
 		//Durant que le joueur est dans les menus principaux du jeu
@@ -226,22 +184,20 @@ int main(int argc, char ** argv) {
 		}
 
 		//On va eteindre la musique du menu si elle est encore lancer
-		if (music1 != NULL) {
-			Mix_FreeChunk(music1);
-			music1= NULL;
+		if (sound != NULL) {
+			Mix_FreeMusic(sound);
+			sound = NULL;
 		}
-		music1 = Mix_LoadWAV("./sounds/donjon_salle.wav");
-		Mix_PlayChannel(-1,music1, -1);
-		
+
 		//Durant que le joueur est en partie
 		while (inGame && !in.quit) {
 			
 			UpdateEvents(&in);
 
 			if (ActionSalle(&in, rendu, police, &player, salle[player.labY][player.labX], &inGame, &inMenu, &levelActuel, &menuActuel, salle, labyrinthe)) { //Si on doit up de lvl		
-				if (music2 != NULL) {
-					Mix_FreeChunk(music2);
-					music2 = NULL;
+				if (sound != NULL) {
+					Mix_FreeMusic(sound);
+					sound = NULL;
 				}
 
 				LibererPlayer(&player);
@@ -301,12 +257,8 @@ int main(int argc, char ** argv) {
 		LibererMonstres(salle);
 	}
 
-	if (music1 != NULL){
-		Mix_FreeChunk(music1);
-	}
-	if (music2 != NULL){
-		Mix_FreeChunk(music2);
-	}
+	if (sound != NULL)
+		Mix_FreeMusic(sound);
 
 	Mix_CloseAudio();
 	TTF_Quit();

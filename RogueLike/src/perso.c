@@ -23,12 +23,13 @@
  */
 void PassageBossFinal() {
 	
-	if (music1 != NULL) {
-		Mix_FreeChunk(music1);
-		music1= NULL;
+	if (sound != NULL) {
+		Mix_FreeMusic(sound);
+		sound = NULL;
 	}
-	music1 = Mix_LoadWAV("./sounds/boss.wav");
-	Mix_PlayChannel(-1,music1, -1);
+
+	sound = Mix_LoadMUS("./sounds/boss.wav");
+	Mix_PlayMusic(sound, 1);
 }
 
 
@@ -62,12 +63,13 @@ void AttaquePlayer (SDL_Renderer * rendu, Player * player, Salle * salle, Salle 
 	for (int i = 0 ; i < salle->nbMonstres ; i++) {
 		if (((salle->monstre[i].salleX+salle->monstre[i].tailleX >= (player->salleX-player->tailleX-5)) && (salle->monstre[i].salleX <= (player->salleX+2*player->tailleX))) && ((salle->monstre[i].salleY+salle->monstre[i].tailleY >= (player->salleY-player->tailleY-5)) && (salle->monstre[i].salleY <= (player->salleY+2*player->tailleY)))){
 			if (!salle->monstre[i].bossFinal) {
-				if (music2 != NULL) {
-					Mix_FreeChunk(music2);
-					music2= NULL;
+				if (sound != NULL) {
+					Mix_FreeMusic(sound);
+					sound = NULL;
 				}
-				music2 = Mix_LoadWAV("./sounds/hit.wav");
-				Mix_PlayChannel(-1,music2, 0);
+
+				sound = Mix_LoadMUS("./sounds/hit.wav");
+				Mix_PlayMusic(sound, 1);
 			}
 			salle->monstre[i].hp -= player->damage;
 			if (salle->monstre[i].hp <= 0) {
@@ -77,12 +79,10 @@ void AttaquePlayer (SDL_Renderer * rendu, Player * player, Salle * salle, Salle 
 					salle->coffre[salle->nbCoffre].salleY = salle->monstre[i].salleY + (salle->monstre[i].tailleY/2);
 					salle->coffre[salle->nbCoffre].ouvert = 0;
 					salle->nbCoffre++;
-					if (music1!= NULL) {
-						Mix_FreeChunk(music1);
-						music1 = NULL;
+					if (sound != NULL) {
+						Mix_FreeMusic(sound);
+						sound = NULL;
 					}
-					music1 = Mix_LoadWAV("./sounds/donjon_salle.wav");
-					Mix_PlayChannel(-1,music1, -1);
 				}
 				LibererAnimation(salle->monstre[i].An);
 				LibererSprite(salle->monstre[i].sp);
@@ -237,12 +237,6 @@ int ActionSalle(Input * in, SDL_Renderer * rendu, TTF_Font * police, Player * pl
 	if (in->key[SDLK_f]) {
 		for (int i = 0 ; i < salleSave[player->labY][player->labX].nbCoffre ; i++) {
 			if (CollisionCoffre(player->salleX, player->salleY, salleSave[player->labY][player->labX].coffre[i].salleX, salleSave[player->labY][player->labX].coffre[i].salleY) && !salleSave[player->labY][player->labX].coffre[i].ouvert) {
-				if (music2 != NULL) {
-					Mix_FreeChunk(music2);
-					music2= NULL;
-				}
-				music2 = Mix_LoadWAV("./sounds/GetCoffre.wav");
-				Mix_PlayChannel(-1,music2, 0);
 				salleSave[player->labY][player->labX].coffre[i].ouvert = 1;
 				if (salleSave[player->labY][player->labX].coffre[i].legendary) {
 					InitObjet_Legendary(&player->damage, &player->def);
@@ -254,6 +248,12 @@ int ActionSalle(Input * in, SDL_Renderer * rendu, TTF_Font * police, Player * pl
 				}
 				else {
 					InitObjet(&player->damage, &player->def);
+					if (sound != NULL) {
+						Mix_FreeMusic(sound);
+						sound = NULL;
+					}
+					sound = Mix_LoadMUS("./sounds/GetCoffre.wav");
+					Mix_PlayMusic(sound, 1);
 				}
 			}
 		}
@@ -592,8 +592,8 @@ void MortPlayer(Player * player, SDL_Renderer * rendu, SDL_Window * screen, Sall
 	Labyrinthe lab = *labyrinthe;
 	CheminLePlusLong(lab, &lX, &lY);
 	InitialisationBoss(screen, &salle[lY][lX], salle[player->labY][player->labX]);
-	if (music2 != NULL) {
-		Mix_FreeChunk(music2);
-		music2 = NULL;
+	if (sound != NULL) {
+		Mix_FreeMusic(sound);
+		sound = NULL;
 	}
 }

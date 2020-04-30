@@ -29,8 +29,9 @@
 /** \brief Nous permet de savoir la taille d'un bouton verticalement sur le menu en jeu*/
 #define TAILLE_BUTTON_MENU_IG_Y 100
 
-/** Nous permet de savoir dans quel menu nous nous trouvons, pour pouvoir ensuite afficher / gérer en conséquence*/
+/** \brief Nous permet de savoir dans quel menu nous nous trouvons, pour pouvoir ensuite afficher / gérer en conséquence*/
 typedef enum {Aucun, Principal, New, Load, Quit, Save1, Save2, Save3, Setting, Volume, Touches, Regle} Menu;
+/** \brief Nous permet de savoir dans quel menu in game nous nous trouvons, pour pouvoir ensuite afficher / gérer en conséquence*/
 typedef enum {Premier = 1, Resume, ReturnMenu, Quitter, Sauvegarde, Sauvegarde1, Sauvegarde2, Sauvegarde3} MenuIG;
 
 

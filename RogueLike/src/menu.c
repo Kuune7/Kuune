@@ -330,7 +330,7 @@ void AfficherMenuTouches(SDL_Renderer * rendu) {
     y += ecartTouches;
     AfficherTexte(rendu, police, couleur, x, y, "Echap");
     y += ecartTouches;
-    AfficherTexte(rendu, police, couleur, x, y, "Clique Souri Gauche");
+    AfficherTexte(rendu, police, couleur, x, y, "Clique Souris Gauche");
     y += ecartTouches;
     AfficherTexte(rendu, police, couleur, x, y, "F");
 

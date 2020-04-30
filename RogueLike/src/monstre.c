@@ -230,12 +230,12 @@ int  EvolutionMonstres (Salle salle[N][M], Player player, Player * p) {
 			if (TimerMob(&salle[player.labY][player.labX].monstre[i])) {
 				int degats = salle[player.labY][player.labX].monstre[i].damages - p->def/4;
 				if (salle[player.labY][player.labX].nbMonstres && !salle[player.labY][player.labX].monstre[0].bossFinal) {
-					if (music2 != NULL) {
-						Mix_FreeChunk(music2);
-						music2= NULL;
+					if (sound != NULL) {
+						Mix_FreeMusic(sound);
+						sound = NULL;
 					}
-					music2 = Mix_LoadWAV("./sounds/hitted.wav");
-					Mix_PlayChannel(-1,music2, 0);
+					sound = Mix_LoadMUS("./sounds/hitted.wav");
+					Mix_PlayMusic(sound, 1);
 				}
 
 				if (!GOD_MOD) {
