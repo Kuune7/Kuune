@@ -11,6 +11,7 @@
  * \date 01/03/2020
 */
 
-Mix_Music *sound;
+Mix_Chunk * background ;
+Mix_Chunk * action ;
 
 #endif
