@@ -178,7 +178,6 @@ int main(int argc, char ** argv) {
 				default:
 					break;
 			}
-			AfficherFPS(rendu, police);
 			SDL_RenderPresent(rendu);
 			SDL_Delay(2);
 		}
