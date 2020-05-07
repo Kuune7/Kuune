@@ -596,8 +596,8 @@ void MortPlayer(Player * player, SDL_Renderer * rendu, SDL_Window * screen, Sall
 	Labyrinthe lab = *labyrinthe;
 	CheminLePlusLong(lab, &lX, &lY);
 	InitialisationBoss(screen, &salle[lY][lX], salle[player->labY][player->labX]);
-	if (sound != NULL) {
-		Mix_FreeMusic(sound);
-		sound = NULL;
+	if (action != NULL) {
+		Mix_FreeMusic(action);
+		action = NULL;
 	}
 }
