@@ -597,7 +597,7 @@ void MortPlayer(Player * player, SDL_Renderer * rendu, SDL_Window * screen, Sall
 	CheminLePlusLong(lab, &lX, &lY);
 	InitialisationBoss(screen, &salle[lY][lX], salle[player->labY][player->labX]);
 	if (action != NULL) {
-		Mix_FreeMusic(action);
+		Mix_FreeChunk(action);
 		action = NULL;
 	}
 }
