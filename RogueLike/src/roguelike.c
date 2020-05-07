@@ -185,7 +185,7 @@ int main(int argc, char ** argv) {
 
 		//On va eteindre la musique du menu si elle est encore lancer
 		if (background != NULL) {
-			Mix_FreeMusic(background);
+			Mix_FreeChunk(background);
 			background = NULL;
 		}
 	
