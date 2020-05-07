@@ -24,7 +24,46 @@ Menu menuActuel = Principal;
 /** \brief Permet de savoir dans quel niveau le joueur se trouve*/
 int levelActuel = 1;
 
+int fps = 0;
+int n = 0;
+struct timeb lastFPS;
 
+void AfficherFPS(SDL_Renderer * rendu, TTF_Font * police) {
+
+	struct timeb currentFPS;
+
+	char texteTab[5];
+
+	SDL_Rect rect;
+	SDL_Surface * texte;
+	SDL_Color couleur = {94, 148, 0};
+
+	rect.x = 5;
+	rect.y = 5;
+
+	ftime(&currentFPS);
+	int secondes = (int) difftime(currentFPS.time, lastFPS.time);
+	int ms1 = 1000 - lastFPS.millitm;
+    int ms2 = currentFPS.millitm;
+
+	fps++;
+
+	if ((((ms1+ms2) >= 1000) && secondes >= 1) || (secondes >= 2)) {
+		ftime(&lastFPS);
+		n = fps;
+		fps = 0;
+	}
+
+	sprintf(texteTab, "%d", n);
+	texte = TTF_RenderText_Solid(police, texteTab, couleur);
+	SDL_Texture * texture = SDL_CreateTextureFromSurface(rendu, texte);
+	SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
+	SDL_RenderCopy(rendu, texture, NULL, &rect);
+
+	SDL_DestroyTexture(texture);
+	SDL_FreeSurface(texte);
+
+}
 
 /**
  * \brief Permet de gerer tout l'affichage du jeu
