@@ -188,7 +188,7 @@ int main(int argc, char ** argv) {
 			Mix_FreeChunk(background);
 			background = NULL;
 		}
-	
+		//on demarre le son de salle de jeu
 		background = Mix_LoadWAV("./sounds/donjon_salle.wav");
 		Mix_PlayChannel(-1,background, -1);
 		//Durant que le joueur est en partie
@@ -197,9 +197,9 @@ int main(int argc, char ** argv) {
 			UpdateEvents(&in);
 
 			if (ActionSalle(&in, rendu, police, &player, salle[player.labY][player.labX], &inGame, &inMenu, &levelActuel, &menuActuel, salle, labyrinthe)) { //Si on doit up de lvl		
-				if (sound != NULL) {
-					Mix_FreeMusic(sound);
-					sound = NULL;
+				if (action != NULL) {
+					Mix_FreeChunk(action);
+					action = NULL;
 				}
 
 				LibererPlayer(&player);
