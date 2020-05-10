@@ -1,5 +1,5 @@
 #charset
-playerWalk.png
+./img/playerWalk.png
 9 4
 #sequences
 4 2

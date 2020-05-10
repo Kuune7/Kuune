@@ -1,5 +1,5 @@
 #charset
-mob1Walk.png
+./img/mob1Walk.png
 9 4
 #sequences
 4 2
