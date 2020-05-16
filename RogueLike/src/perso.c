@@ -220,20 +220,6 @@ int ActionSalle(Input * in, SDL_Renderer * rendu, TTF_Font * police, Player * pl
 	player->sp->stat = marche;
 	MouvementSpritePlayer(player->sp, *player, player->sp->stat);
 
-
-	if (in->key[SDLK_p]) {
-		if (*levelActuel + 1 <= 4) {
-			*levelActuel += 1;
-			sleep(1);
-		}
-	}
-	if (in->key[SDLK_o]) {
-		if (*levelActuel - 1 >= 1) {
-			*levelActuel -= 1;
-			sleep(1);
-		}
-	}
-
 	if (in->key[SDLK_f]) {
 		for (int i = 0 ; i < salleSave[player->labY][player->labX].nbCoffre ; i++) {
 			if (CollisionCoffre(player->salleX, player->salleY, salleSave[player->labY][player->labX].coffre[i].salleX, salleSave[player->labY][player->labX].coffre[i].salleY) && !salleSave[player->labY][player->labX].coffre[i].ouvert) {
